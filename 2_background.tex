@@ -1,0 +1,174 @@
+\section{Background}
+
+\begin{figure}[t]
+\centerline{\includegraphics[width=0.9\columnwidth]{fig/architecture.pdf}}
+\vspace{-0.08in}
+\caption{Architecture of personalized live streaming.}
+\vspace{-0.1in}
+\label{fig:architecture}
+\end{figure}
+
+We start with the background of personalized live streaming, including
+its similarities and key differences to traditional live streaming,
+and what is their subsequent implication on the system implementation,
+especially on broadcaster-side streaming protocol.
+
+\subsection{Overview of architecture}
+Figure~\ref{fig:architecture} shows the common architecture of
+most popular personalized live streaming platforms.
+When live streaming starts, the broadcaster uploads the live
+video to an edge server using RTMP protocols, where the
+video is further forwarded to an entry server of a CDN
+After that, the CDN uses its overlay networks to distribute the
+video to many edge servers.
+Finally, each viewer streams the video from a nearby edge
+server using HTTP-based streaming
+protocols (i.e., DASH~\cite{dash}).
+
+\subsection{Personalized live streaming vs. other live streaming}
+First of all, both personalized live streaming and
+traditional live streaming (e.g., ESPN's sports broadcast
+and CNN's scheduled programs) share the need to
+distribute video content to a large audience at  a low cost.
+Therefore, both types of live streaming rely on existing
+CDN infrastructure to distribute video content to viewers through HTTP-based streaming protocols.
+
+%videos from a nearby edge server (shown in Figure~\ref{fig:architecture}).
+%%\footnote{We use live video streaming and live streaming interchangeably}.
+%%Like other types of video streaming, personalized live streaming
+%%relies on CDN overlay networks to distribute video content from
+%%the source to many edge servers, and each viewer can stream
+%%videos from a nearby edge server.
+%Note that the edge servers are often web servers and stream
+%videos to viewers using HTTP-based streaming
+%protocols (i.e., DASH~\cite{dash}).
+%%It is worth noting that in order to serve a large audience with
+%%reasonable cost, personalized live streaming,
+%%like video on-demand systems, uses web servers
+%%as edge servers and therefore uses HTTP-based streaming
+%%protocols (i.e., DASH~\cite{dash})
+%%between a viewer and an edge server.
+
+%\subsection{What's new in personalized live streaming}
+Despite the similarities, personalized
+live streaming has two key differences:
+
+\myparatight{Mobile users as broadcasters}
+%A video streaming platform provider maintains an overlay network on top of the Internet, which consists of RTMP servers, CDN servers, and edge servers.
+%one key difference is on the implementation of the content source.
+Traditional live streaming (e.g., ESPN) uses a dedicated
+over-provisioned connection (usually direct cable or an exclusive
+satellite channel) to stream high-resolution raw video
+content from a camera to a special content management
+server which transcodes the video from the original forms
+to video chunks that can be efficiently distributed to
+edge servers.
+In contrast, the content source in personalized video
+streaming is often mobile users who upload the live video
+through a wireless connection shared with many other users.
+
+\myparatight{Broadcaster-viewer interactivity}
+Another key difference
+is that ensuring low end-to-end streaming delay is critical
+in personalized live streaming for broadcasters
+to interact with viewers, where viewers in traditional sports live
+events only passively watch the video.
+For instance, the broadcaster may want to thank the audience
+instantaneously if he/she is given gifts from a viewer;
+in game streaming, the broadcaster may make frustrating
+mistakes without instantaneous feedback from the viewer.
+Therefore, the streaming delay ideally should be no more than
+several seconds, which is much less than traditional sports live
+streaming.
+
+\subsection{Broadcaster streaming protocols}
+
+These differences lead to three requirements (formally defined in the next section)
+on how the broadcaster streaming protocol:
+
+\begin{packedenumerate}
+
+\item {\em High bitrate:} The broadcaster must encode
+the video in high bitrate and send the high-bitrate video
+to the edge server, so that downstream viewers can watch
+the video in the best possible resolution.
+
+\item {\em Agility:} The streaming protocol must be sufficiently adaptive
+to quickly react the performance fluctuations in wireless networks.
+
+\item {\em Timeliness:} The streaming protocol must ensure the streaming
+delay between the broadcaster and viewers is minimized
+or at least bounded.
+
+\end{packedenumerate}
+
+For practical reasons, RTMP has become the de-facto
+broadcaster streaming protocol in most of today's platforms,
+including Facebook Live, Twitch, Periscope, iQIYI,
+Douyu, and so forth.
+RTMP is flexible enough to potentially meet
+the three aforementioned requirements.
+For instance, it offers several tunable parameters for
+the broadcaster to adjust the video quality, including
+frames per second (FPS), buffer size, and frame dropping
+policy.
+In theory, the frame-dropping policy could
+strike a dynamic balance between quality and timeliness
+in the presence of throughput fluctuation
+(e.g.,~\cite{huang2003adaptive,krasic2003quality,singh2004dynamic}).
+Nonetheless, as we will show in the next section,
+both commercial implementations of RTMP and
+the up-to-date open source RTMP implementation suffer from similar quality
+degradation.
+
+Alternative HTTP-based broadcaster streaming protocols have also
+been studied, including using DASH~\cite{dash}, HTTP POST~\cite{seo2012experimental},
+and adaptively switching between them~\cite{wilk2016leveraging}.
+While switching from RTMP to HTTP-based protocols might
+achieve better video quality, it requires costly
+changes on client-side software and cannot react to wireless
+fluctuation in a timely manner due to chunking overheads
+(each chunk is at least of
+several seconds).
+
+\iffalse
+There are a few tunable parameters for the broadcaster to adjust the video quality. They are frames per second (FPS), resolution, and bitrate. Then the streaming software uses H.264 to compress the video and push it to the RTMP server. H.264 uses two mechanisms to compress video. First, instead of streaming raw frames, it sends a few keyframes and sends the delta between the keyframes and the non-keyframes. Second, if the result frames still exceed the pre-configured bitrate, a filter would be used to generate ``big pixels'' in the video pictures, which reduce frame size but sacrifices video quality.
+
+
+\textbf{Requirements of personalized live streaming.}
+Compared with VoD and traditional living streaming, the personalized live streaming
+has two unique requirements, bad network resistance and low streaming delay.
+
+In VoD, the video is ready on servers for the audience to fetch; in traditional living streaming, the video source side usually reserve network bandwidth from ISP to upload real-time video from its source to servers, and similarly the audience fetch the video from a nearby server. While in personalized live streaming, the video generation environment may be complicated (e.g., our door activities, unstable radio access network), thus there is no guarantee for the network condition to upload videos to servers. Thus, the personalized video should be resistant to bad network conditions (e.g., low throughput, network jitters).
+
+Another important feature in personalized video streaming is that it has systems (e.g., chatting, gifting) for the broadcaster and the audience to interact with each other. In this scenario, video delay is not tolerable; that is, personalized live streaming has more requirements on timeliness that traditional live streaming and VoD. For example, the broadcaster may want to thank the audience instantaneously if he/she is given gifts; in game streaming, without instantaneous feedback from the audience, the broadcaster may make frustrating mistakes.
+\fi
+
+
+\iffalse
+In this section, we describe the general architecture of the interactive live video streaming system.
+\subsection{Interactive Live Video Streaming System}
+Interactive live video streaming system is composed of three major components: (1) Streamer side; (2) CDN servers; (3) Viewer side, as shown in figure\ref{fig_architecture}. Each streamer is equipped with a software, like OBS, twitch tools, that captures the camera or screen in real-time and encodes into H.264 format, then transmitted to the video platform through RTMP. The video platform distributes the streaming over CDN servers, and the viewers request the streaming from one edge server.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.9\columnwidth]{architecture.pdf}
+\vspace{-0.08in}
+\caption{Interactive Live Video Streaming System}
+\vspace{-0.1in}
+\label{fig_architecture}
+\end{figure}
+
+While in live video streaming systems, frames are produced by a video frame generation thread and consumed by a frame sending thread, which is a typical producer-consumer model. Frames in the buffer are organized naturally in a temporal order. We propose smarter buffer management mechanisms, where we have timeliness as the first-priority goal and meanwhile increase the most number of decodable frames.
+
+Compared with traditional live video streaming, there are two fundamental differences: 1) the streamers are often mobile devices in diverse and varying wireless environments, which indicates no performance guarantee on network connections, 2) instantaneous interaction (e.g., chatting) between the streamer and the audience requires strict low end-to-end latency (several seconds), which is much shorter than traditional live streaming (tens of seconds).
+
+Each component will introduce delay into the system, and a long latency will obviously affect the interactivity. To avoid queuing latency in live video streaming systems, the streamer side and the viewer side usually adopt shallow buffers or queues to improve timeliness (e.g., the 0.7-second buffer in OBS streamer application).
+With shallow buffer and varying wireless environments, the smooth watching experience becomes a challenge.
+
+\subsection{Timeliness Control}
+In practical scenarios where the underline network fails to provide stable bandwidth (e.g., mobile live streaming), the streamer side usually chooses to drop frames to guarantee the timeliness.
+There exists three kinds of frames, `I', `P', `B', in H.264 format. `I' frames are independent, `P' frames depend on previous `I` or `P' frames. `B' frames depend on previous and later `I', or `P' frames. Missing higher priority frames will lead to decoding error to lower priority frames.
+
+Due to the frame dependency of decode,
+\fi 

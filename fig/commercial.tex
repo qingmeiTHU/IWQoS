@@ -1,0 +1,41 @@
+\begin{figure*}[htb]
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{fig/obs_douyu.pdf}
+  \caption{Throughput, OBS to Douyu server}
+  \label{fig:obs-douyu}\mylabel{fig:obs-douyu}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{fig/douyu.pdf}
+  \caption{Throughput, Douyu broadcaster to Douyu server}
+  \label{fig:douyu}\mylabel{fig:douyu}
+\endminipage\hfill
+\minipage{0.32\textwidth}%
+  \includegraphics[width=\linewidth]{fig/obs_twitch.pdf}
+  \caption{Throuhput, OBS to Twitch server}
+  \label{fig:obs-twitch}\mylabel{fig:obs-twitch}
+\endminipage
+\end{figure*}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=.8\columnwidth]{fig/vary-bandwidth.pdf}
+\caption{Bandwidth Control}
+\label{fig:vary-bandwidth}\mylabel{fig:vary-bandwidth}
+\end{figure}
+
+\begin{table}[tb]
+\centering
+\caption{Frames dropped in different scenarios}
+\label{tbl:drop}
+{\setlength{\tabcolsep}{1pt}
+\begin{tabular}{|c|c|l|}
+\hline
+\textbf{Scenario} & \textbf{Seconds of Black Screen(S)} & \textbf{Percentage(\%)}   \\ \hline
+$Obs-douyu(a)$               & 18.1         & 30.2\%                           \\ \hline
+$Obs-twitch(a)$              & 9.9        & 16.3\%                            \\ \hline
+$Douyu-douyu(a)$             & 16.6      & 27.2\% \\ \hline
+$Obs-douyu(b)$            & 93.1      & 37.2\%     \\ \hline
+$Obs-twich(b)$             & 79.3      & 31.7\%  \\ \hline
+$Douyu-douyu(b)$              & 66.67         & 26.7\%  \\ \hline
+\end{tabular}}
+\end{table}

@@ -1,0 +1,59 @@
+\section{Measurement and Analysis}
+
+\subsection{Motivating Examples}
+\input{fig/setup.tex}
+\textbf{Experiment setup.} We set up a live video streaming framework as in Figure~\ref{fig:setup}. Two servers are connected to a switch in the middle. The servers have 2 CPU cores and 6GB memory, and are equipped with 100Mbps NICs. OBS studio (sender) is used to stream videos to the audience side over RTMP protocol, the broadcaster server (receiver) is built on nginx-rtmp module. On the audience server (receiver), we use the VLC player to play the video. In the experiment, we use tc~\cite{tc} to control the real-time bandwidth on the sender side.
+
+\input{fig/case_study.tex}
+\textbf{Case study.} In the first motivating experiment, we control the network bandwidth according to an actual trace from a wireless network. The trace is from FCC~\cite{fcc} and describes the network conditions when a user join the www.amazon.com on a mobile device. We aggregate packets in the trace into 5-second bins and calculate the data amount in each bin. We then control the network bandwidth on the sender side according to the per-second profile. The network bandwidth is shown in Figure~\ref{fig:case-bandwidth}. Meanwhile, we stream video at a bitrate of $3000$kbps via OBS and capture actual video packet trace using tcpdump. We aggregate packets in the video packet trace into bins of $1$ second. And the result is shown in Figure~\ref{fig:case-throughput}.
+
+In the figure~\ref{fig:case-throughput-a}, the actual throughput roughly equals to the minimum of the controlled bandwidth and the choosen bitrate. However, we observe that at 50s, the network bandwidth falls below the bitrate and the situation lasts until 53, while the actual throughput degrades below the bitrate from 50s to 58s (except a small spike). This is an abnormal behavior, as \textit{a 2-second network jitter cascadingly causes 8-second throughput falling in the streaming application.} Besides, a constant bitrate cannot efficiently handle long-term the bandwidth variance, which can be seen in Figure~\ref{fig:case-throughput-b}. Bandwidth is enough during $0-180s$, but after $180s$, the available bandwidth drops dramatically and lasts for $80s$. In this challenging network environment, the default The OBS won't low down its bitrate and causes tremendous frame dropping.
+
+\input{fig/trace.tex}
+\textbf{Network Conditions} To know the realistic network conditions, first we want to know the distribution of the traces. Using the average bandwidth as the unit, we normalize other value into the
+relative delta(Figure.~\ref{fig:trace}). We combine several public datasets: FCC traces and HSDPA traces. The total trace lasts for $30$ hours. Almost $50\%$ of traces are under the average throughput, which is shocking. About $20\%$ of the traces are at most half of the average. The first picture indicates that in real-time network, bandwidth fluctuation frequently occurs. To further explain how frequently bandwidth fluctuation happens, we draw a picture of bandwidth down distribution, in Figure~\ref{fig:trace-down}. The value is calculated by counting the continuous time lower than the average bandwidth. About $20\%$ of the bandwidth fluctuation lasts for more than $10$ seconds, some even lasts for hundreds of seconds. Always using constant bitrate may introduce massive frame dropping.
+
+\input{fig/commercial.tex}
+\textbf{Experiments on several commercial platforms.} We further repeat the experiment in different commercial platforms and settings, including OBS pushing video to Douyu server, Douyu broadcaster to Douyu server, and OBS to twitch server.
+Figure~\ref{fig:obs-douyu}, ~\ref{fig:douyu}, and~\ref{fig:obs-twitch} show the throughput of the three experiments respectively, and Figure show the corresponding frame drops during the experiment.
+
+Comparing the results across different platforms, we observe that the ``cascading effect'' is prevalent, appearing on all platforms (e.g., the 30s in OBS to Douyu, the 32s in Douyu to Douyu, and 43s in OBS to Twitch). We also find out that the cascading effect is not related to the instantaneously available bandwidth. For example, in Figure~\ref{fig:obs-douyu}, a dramatic bandwidth drop at 30s causes the cascading frame drop; while in Figure~\ref{fig:douyu}, a slight bandwidth drop at 32s causes the frame drop. Another observation is that the length of the cascading drop is different on different platforms: >5s in Douyu and 2-3s in Twitch. Finally, from Figure, we observe that the broadcaster software usually can tolerate short-period throughput drop without dropping frames, but cannot tolerate long-period ones.
+
+\subsection{Analyzing the Root Cause}
+\input{fig/drop.tex}
+
+%\wenfei{1. decoding sequence, 2. consumer-producer mode, 3. cascading effect.}
+
+The cause of ``frame drop'' is the buffer management in the streaming software. There exists a queue to temporarily store video frames; a video frame generating thread captures images from the camera, encodes raw images into H.264 frames, and enqueues the H.264 frames; while a frame sending thread dequeues frames and send them to the network via TCP socket operations (e.g., \mywrite).
+%The two threads form a typical consumer-producer model.
+If the network is in bad conditions, the frame sending thread would be blocked, and then the queue accumulates until a threshold, causing the frame generating thread unable to enqueue frames and thus dropping them.
+\input{fig/frame_order.tex}
+\input{fig/obs_drop_algo.tex}
+
+The cause of the ``cascading'' drop is the dependency between frames. In H.264, a piece of video is organized into groups of pictures (GOP). During the encoding, the first frame in each group is kept unchanged (I frame); a few P frames are generated by computing their delta with the preceding I or P frame; a B frame is computed based on its neighboring I and/or P frames. Figure~\ref{fig:frame-order} shows an example of a series of I, B, P frames. The frames are indexed by display order, but the encoding/decoding is in a different order according to the dependency. Due to the dependency, when a P frame in the middle of a GOP is dropped, all following P, B frames within the same group would not be able to decode. Thus, if a small interruption from the network causes frame drop in the beginning or middle of a group, it cascading causes the remaining frames in the same group not decodable (or simply dropped).
+
+
+We studied OBS broadcaster software and list its frame management algorithm (Algorithm~\ref{alg:obs-drop}). At first, the drop priority are set to false. When a new frame arrives at the queue, if it is I frame, it is enqueued (never dropped); otherwise, the timespan of the frames in the queue is computed (i.e., the difference of the display timestamps between the latest and the earliest frame). If the incoming frame is a P frame, and if the timespan is smaller than 0.9 second, the P frame is enqueued; but if the drop priority corresponding P frame is true, the P frame is dropped; and if timespan is larger than 0.9 second, all P and B frames (including the ones in the queue and incoming ones) within the GOP are dropped, all the drop priority are set to true. Similarly, if the incoming frame is a B frame, the threshold is 0.7 second, and the processing logic is the same with that of P frames.
+
+
+\iffalse
+
+The broadcaster usually runs software from the platform provider to generate live video and upload it an RTMP server. We studied an existing commercial video streaming software OBS~\ref{XX}; it has a video frame generating thread and frame sending thread, which forms a typical consumer-producer model. The video frame generating thread capture raw images from the device camera and encoding them into video frames (e.g., H.264), and enqueue the generated frames into a queue. While the frame sending thread takes frames from the queue and calls TCP socket interface (\mywrite) to send frames into the network. If the network is in bad conditions, the sending thread is blocked by the \mywrite operation of TCP, and the queue accumulates until a threshold causing the frame generating thread to drop frames.
+
+
+There exists three kinds of frames, 'I', 'P', 'B', in H.264 format. 'I' frames are independent, 'P' frames depend on previous 'I' or 'P' frames. 'B' frames depend on neighbouring 'I', or 'P' frames. Missing higher priority frames will lead to decoding error to lower priority frames.
+Streamer usually maintains a shallow buffer, as the figure shows\ref{fig_drop}. Encoder pushes the encoded frames into the buffer, at the same time, the streamer popes the buffered frames into the TCP socket. Reading the source code of OBS, we find that the default strategy results in the quality issue. Default strategy goes like that, record the time length of buffered frames, if the time larger than a certain value $0.7s$, drop all the B frames in the buffer, and reject all the following B frames until a P frame arrive. If the buffer exceeds $0.9s$, drop all the P frames in the buffer and to come, and wait for the key I frame. Dropping one P frame means all the remaining P frames in the GOP is useless, and a GOP usually lasts for a few seconds(for example, default 9s in OBS). Dependency of different frames and dropping frames lead to such quality issue.
+
+H.264 is the typical video encoding mechanism using in video streaming. To generate video in the format of H.264, raw frames are put into groups of pictures (GOP), and then H.264 frames are computed within each group. In each group, the first frame is kept as I frame without change; a few P frames are computed by computing their delta with the preceding I frame or P frame; a B frame is computed based on its neighboring I frame and/or P frames. In video streaming, the broadcaster can preconfigure several parameters, including frames per second (FPS), resolution (width and height), and bitrate. During the video compression from raw frames to H.264 frames, I, P, B frames are computed and filters may be used to keep the preconfigured bitrate. For example, if the bitrate is low and FPS and resolution are high in the configuration, then the video compression filter would generate ``big pixels'' to reduce the bitrate, which actually reduce the video quality.
+
+Combining the I, P, B frame in H.264 and the queue management in OBS, we present its frame dropping strategy. The frame sending thread always tries its best to dequeue and send frames. In the frame generating thread, I frames are always enqueued without dropping; for an incoming P frame, if the most recent frame in the queue is 0.9 second later than the most recent frame, the current P frame and existing P frames in the queue is dropped, and otherwise the P frame is enqueued; similarly for B frames, the threshold is 0.7 second.
+
+
+Combining these two requirements, we find naive solutions is hard to guarantee both of them. To make the streaming resistant to bad network conditions such as low throughput and occasional jitters, the broadcast software tends to have larger buffer/queue to hold frames when the network cannot send them; while larger buffer would cause larger queuing delay, which hampers the requirement of low latency. Thus, we believe it is unique and challenging to achieve low-latency user-generated live video streaming that is resistant to unstable
+
+\fi
+
+\iffalse
+\subsection{Commercial Applications}
+To validate whether the commercial service provider has solved the issue, we repeat the same black box experiment on two commercial platforms(Twitch, Douyu) and three streamer(OBS, Douyu Tools, XSplit) respectively.
+\fi

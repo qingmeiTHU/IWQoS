@@ -1,0 +1,67 @@
+%\section{A closer look at the quality issues}
+
+\iffalse
+
+We set up a live video streaming framework as in figure. The streamer side equipped with one network interface card(NIC) sends a video streaming to the server. The server is build on nginx-rtmp module to support RTMP protocol. We use VLC player to supervise the video streaming at the server side, and use tc to control the latency, bandwidth of the link.
+
+In the example experiment, we set the streaming bitrate to be $2000$ kbps, a value that frequently adopted, the link condition varies according to real-world data trace \cite{iitkgp-apptraffic-20151126}, and capture the packet trace using Wireshark. Figure \ref{fig_trace} shows the packet trace. We aggregate packets into $100$-ms intervals and count the throughput in each interval. The x-axis shows time elapsing during the measurement, and the y-axis shows the throughput in each interval.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.9\columnwidth]{Throughput.pdf}
+\vspace{-0.08in}
+\caption{Packet trace in the experiment}
+\vspace{-0.1in}
+\label{fig_trace}
+\end{figure}
+
+Before $80$s, the throughput in each $100$-ms interval roughly equals to the regular value. But at $80$s, the throughput experiences a period of almost-zero, after several seconds, the throughput returns normally. At the strange period, we observe buffering and black screen in server side
+
+\subsection{Key Factors}
+We do some controlled experiments, using the open source live streaming software, OBS, to further explore the root cause.
+\subsubsection{Different Starting Time}
+We set the bitrate to $2000$ kbps, the keyframe interval to $8$s and other parameters to default value. We observe that for different starting time, even for the same interruption time, the number of dropped frames differs greatly, Fig. \ref{fig_starttime}. We take the starting time [17,19,21,23] as example, the number of dropped frames has a linear relationship with the starting time. Another interesting finding is that the number of dropped frames displays a regular pattern every $8$s, which is exactly the keyframe interval \ref{tab_startregular}.
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.9\columnwidth]{StartTime.pdf}
+\vspace{-0.08in}
+\caption{Number of Dropped Frames for Different Start Time}
+\vspace{-0.1in}
+\label{fig_starttime}
+\end{figure}
+
+\begin{table}[!htb]
+\centering
+\caption{Number of Dropped Frames for Different Start Time}
+\label{tab_startregular}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+Starting time(s)       & 9     & 17    & 25    & 33  \\ \hline
+Average Dropped Frames & 202.2 & 203.8 & 198.6 & 199 \\ \hline
+\end{tabular}
+\end{table}
+
+
+\subsubsection{Network Interruption Time}
+
+
+\subsubsection{Video Bitrate}
+We choose the streaming video bitrate set to $[1000,1500,2000,2500]$ kbps, and the measurement results are as follows\ref{tab_Bitrate}.
+The network is controlled to cut off at $19$s, and recover at $21$s. Keyframe interval is $8$s by default.
+For these different video bitrates, the number of dropped frames seems all the same. Given enough bandwidth, changing the video bitrate wouldn't make any difference. Dropping frame strategy has no relationship with streaming bitrate.
+\begin{table}[!htb]
+\centering
+\caption{No. of Dropped Frames}
+\label{tab_Bitrate}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+Bitrate(kbps)          & 1000  & 1500  & 2000  & 2500  \\ \hline
+Average Dropped Frames & 148.2 & 148.2 & 149.0 & 150.6 \\ \hline
+\end{tabular}
+\end{table}
+
+Frame dropping mainly depends on three factors: (1)starting time (2) interruption time.
+
+\subsection{Design space}
+
+\fi

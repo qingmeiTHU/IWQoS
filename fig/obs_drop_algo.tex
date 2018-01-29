@@ -1,0 +1,29 @@
+\begin{algorithm}[tb]
+\caption{OBS Frame Enqueue Management}
+\label{alg:obs-drop}\mylabel{alg:obs-drop}
+\begin{algorithmic}[1]
+\State \textbf{Input:} frame
+\State T1 := 0.9s, T2 := 0.7s
+\If{frame is I frame}
+\State dropPFrame := False, dropBFrame := False
+\State \Call{Enqueue}{queue, frame}, \Return
+\Else
+\State timespan := \Call{TimeSpan}{queue}
+\EndIf
+\If{frame is P frame}
+\If{dropPFrame or timespan $>$ T1}
+\State \Call{Drop}{frame}, \Call{Drop}{queue, `P'}
+\State dropPFrame := True
+\Else
+\State \Call{Enqueue}{queue, frame}
+\EndIf
+\ElsIf{frame is B frame}
+\If{dropBFrame or timespan $>$ T2}
+\State \Call{Drop}{frame}, \Call{Drop}{queue, `B'}
+\State dropBFrame := True
+\Else
+\State \Call{Enqueue}{queue, frame}
+\EndIf
+\EndIf
+\end{algorithmic}
+\end{algorithm} 

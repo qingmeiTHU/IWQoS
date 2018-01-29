@@ -1,0 +1,54 @@
+\section{Introduction}
+
+
+% its becoming popular
+Recent years have seen the coming of age of personalized live streaming. 
+With more personal devices equipped with high-definition cameras, we observe a rapid proliferation of apps that allow people to stream videos from their smartphones or tablets to anyone who tunes in. 
+Such personalized live streaming has found its popularity and commercial success as a better way of sharing experience (e.g., Facebook Live~\cite{??}, Periscope~\cite{??}), engaging with followers (e.g., Twitter Meerkat~\cite{??}), and enhancing gaming experience (e.g., Twitch~\cite{??}).
+%For instance, Twitch streamed 241 billion minutes of videos from its users in 2015~\cite{??}, which is on par with live streaming traffic on ESPN~\cite{}.
+It is also being widely used in other countries, such as China (\cite{qixiu,douyu,??}).
+While research community has insofar focused on how to distribute content to many viewers~\cite{??,??,??}, the first-hop connection between broadcasters and edge servers has not gained enough attention.
+
+% what's new
+We argue that in contrast to traditional live video services (e.g., ESPN), personalized live streaming poses two new challenges on broadcasters, who stream the raw videos to edge servers before they are distributed to viewers.
+\begin{itemize}
+
+\item First, while live sport broadcasters use a well-provisioned connection to upload video feed, the broadcaster connection in a personalized streaming event is often wireless and has substantial temporal variability due to wireless jitter and user movement. 
+So the first challenge is how broadcasters stream high quality videos through an unstable wireless connection.
+
+\item Second, while sports streaming usually has 5-10 seconds of delay, in personalized streaming, real-time interactivity is crucial for the experience of both broadcasters and viewers, because the broadcaster often interact with viewers who pose questions or give ``likes''.
+So the second challenge is how to maintain a small streaming delay on the broadcaster side.
+\end{itemize}
+Arguably, similar challenges also apply to the viewers, but quality degradation of the broadcaster has a direct impact on {\em all} viewers: viewers see at most the quality uploaded by the broadcasters, even if they have high-speed connections, and any delay by the broadcaster could increase the delay of all viewers.
+Therefore, in most commercial platforms, the broadcasters rely on specialized protocol, notably RTMP, rather than HTTP-based protocols widely used on viewer side.
+
+% quality today is not good
+Through extensive experiments, however, we show that many of today's RTMP-based commercial platforms fail to address the aforementioned challenges.
+In particular, we observe that an occasional network jitter (e.g., 100s of ms) can cause video streaming be stalled by several seconds or more. 
+Such {\em ``cascading effect''} where a short bandwidth drop leads to pathological quality in RTMP is particularly worth noting in our context, because while long-lived disconnection is rare in today's WiFi and cellular networks, transient bandwidth drop is still not uncommon. 
+
+
+% we figured out the root cause
+We argue that the root cause for such cascading effect lies in the \jc{is it that they wrongly assume multiple bitrates, or that they assume TCP won't stop for more than 1 sec, or that they only consider one metric (timeliness or bitrate) and ignore others, or that they assume the buffer length cant be changed?}
+Therefore, existing alternatives and intuitive baseline solutions fail to achieve the two basic requirements above. 
+HTTP-based video protocols usual divide video into chunks, which granularity cannot satisfy the timeliness requirement; 
+RTMP-based protocols (as we experiments) cannot handle network jitters; 
+and naive solution such as increasing video buffer to be resistant to dynamic network conditions would increase video buffering delay, which is not preferred. 
+
+
+% key insight in our solution
+To address the aforementioned limitations in prior work, we develop a framework that take into account XXX, which are ignored in prior work, and give an optimal offline frame-dropping algorithm for RTMP. 
+Furthermore, we present a practical online frame-dropping algorithm called \jc{give the algorithm a name} that empirically achieves close-to-optimal quality and outperforms baseline solutions across different metrics.
+
+
+% two contributions
+%% show its prevalence, and root cause
+%% offer a framework, and potential solutions
+In this paper, we make two contributions:
+\begin{itemize}
+\item Shed light on the broadcaster-side quality issues and its root cause in today's personalized live streaming, and show its prevalence across different commercial platforms and network conditions.
+\item Offer a formal model to qualitatively show the limitations of baseline solutions and empirically quantify the substantial room for improvement by an optimal offline frame-dropping algorithm, and as an early step, propose a practical algorithm that achieves close-to-optimal quality.
+\end{itemize}
+
+
+

@@ -1,0 +1,162 @@
+\section{Introduction}
+
+
+% its becoming popular
+Recent years have seen the coming of age of personalized live
+streaming. With more personal devices equipped with high-definition
+cameras, we observe a rapid proliferation of apps that allow users
+to stream videos from their smartphones or tablets to anyone who
+tunes in. Such personalized live streaming has found its world-wide
+popularity as a way of engaging with more followers (e.g., Twitter Meerkat~\cite{twitter}, iQIYI~\cite{iqiyi}),
+sharing richer experience (e.g., Facebook Live~\cite{facebook}, Periscope~\cite{periscope}),
+and broadcasting online gaming and sports events (e.g., Twitch~\cite{twitch}, Douyu~\cite{douyu}).
+%For instance, Twitch streamed 241 billion minutes of videos from its users in 2015~\cite{??}, which is on par with live streaming traffic on ESPN~\cite{}.
+%It is also being widely used in other countries, such as China (\cite{qixiu,douyu,??}).
+
+
+% what's new
+While recent work on personalized live streaming has insofar
+focused on its traffic pattern (e.g.,~\cite{zhang2015crowdsourced,tang2016meerkat})
+and video distribution architecture (e.g.,~\cite{siekkinen2016first,wang2016anatomy}),
+not enough efforts have been made to characterize the
+quality issues of broadcaster-uploaded videos in the wild among popular platforms of
+personalized live streaming.
+We argue that understanding and improving the broadcaster-side
+video quality is crucial to the Quality of Experience (QoE) of personalized live streaming for two reasons:
+\begin{packedenumerate}
+\item Broadcaster-side quality issues
+have a direct impact on {\em all} viewers:
+any delay or failure caused by the broadcaster could inflate the
+streaming delay of all viewers, and the upstream video quality
+sets a ``cap'' on the QoE of all
+viewers (even if they have high-speed downlink connections).
+As a result, for instance, we observe
+the broadcasters typically only upload videos in the highest constant
+bitrate.
+\item Unlike traditional live streaming of popular events
+(e.g., ESPN) where broadcasters have well-provisioned
+connections and streaming delay is typically at least 10 seconds,
+personalized live streaming poses new challenges on
+broadcaster-side QoE, because
+(a) the broadcasters are mobile users with highly variable
+network performance due to wireless packet losses and
+user mobility, and
+(b) the end-to-end streaming delay must be
+several seconds to create real-time interactivity when
+the broadcaster interacts with viewers who pose questions
+or ``likes''.
+\end{packedenumerate}
+
+%\begin{itemize}
+%
+%\item First, while live sport broadcasters use a well-provisioned connection to upload video feed, the broadcaster connection in a personalized streaming event is often wireless and has substantial temporal variability due to wireless jitter and user movement.
+%So the first challenge is how broadcasters stream high quality videos through an unstable wireless connection.
+%
+%\item Second, while sports streaming usually has 5-10 seconds of delay, in personalized streaming, real-time interactivity is crucial for the experience of both broadcasters and viewers, because the broadcaster often interact with viewers who pose questions or give ``likes''.
+%So the second challenge is how to maintain a small streaming delay on the broadcaster side.
+%\end{itemize}
+%Therefore, in most commercial platforms, the broadcasters rely on specialized protocol, notably RTMP, rather than HTTP-based protocols widely used on viewer side.
+
+% quality today is not good
+Despite its significance, today's QoE of broadcaster-uploaded video,
+according to our experiments, is not desirable and we observe two {\em prevalent}
+quality issues across many popular platforms in the wild.
+In particular, we observe an ``amplifying effect'' of network
+condition on video QoE: {\em a transient throughput  degradation
+of less than a second on the broadcaster side can lead to
+several seconds of video stall observed by the viewers}. Besides, {\em long-term network fading is not rare in real world}.
+Such problem is particularly prevalent, because the broadcasters
+(e.g., smartphones, tablets) are often wireless-connected and, both
+long-lived degradation and transient throughput drops are not
+uncommon~\cite{some paper to show this}  in today's wireless networks,
+due to cellular hand-off, WiFi-cellular
+switch, device moving-around and so forth.
+
+
+% we figured out the root cause
+The root cause of this broadcaster-side "amplifying" quality problem
+lies in the fact that RTMP, the de-facto broadcaster-side streaming protocol,
+drops video frames too aggressively when video buffer overflow
+occurs, resulting in unnecessary drops of important video frames and
+persistent video stalls on the viewer side.
+Moreover, intuitive strawman solutions, such as increasing
+buffer length, alternative frame-dropping policies) fail to meet at least one
+of the two QoE requirements of personalized streaming:
+they either increase end-to-end delay (i.e., low timeliness), or drop more
+frames than needed (i.e., low video resolution).
+For instance, simply increasing buffer size on the broadcaster
+side hides transient throughput drops but may cause end-to-end
+delay to grow unboundedly.
+
+For the long-term network drops, state-of-art related works focus on the player strategy in DASH. Little try is put into the research of broadcaster' side. Using the complete MPC is one possible solution, but different from DASH, in live video streaming, buffer is little to have improve space. Besides, RobustMPC takes long time to calculate and FastMPC may introduce some quantization error.
+
+% key insight in our solution
+We argue that such broadcaster-side quality issues are reduced significantly
+by a systematic design of RTMP configuration (i.e., key frame
+interval, buffer size) and logic (i.e., frame-dropping policy) that take
+both video resolution and timeliness as objectives.
+Our preliminary evaluation shows that a better RTMP design
+could significantly improve video quality compared to three popular
+RTMP-based commercial  platforms as well as an open-source
+RTMP platform.
+Furthermore, we found that a greedy bitrate adaptation algorithm can perform well enough in live streaming scenario, which is an interesting found. 
+The proposed greedy algorithm, which is called GA, can reduce the frame dropping into an acceptable level(cut down $80\%$ of the frame dropping) and keep the original bitrate at the same time.
+
+%develop a framework that take into account XXX, which are ignored in prior work, and give an optimal offline frame-dropping algorithm for RTMP.
+%Furthermore, we present a practical online frame-dropping algorithm called \jc{give the algorithm a name} that empirically achieves close-to-optimal quality and outperforms baseline solutions across different metrics.
+
+
+% two contributions
+%% show its prevalence, and root cause
+%% offer a framework, and potential solutions
+This paper, we make two contributions:
+\begin{enumerate}
+\item We are the first to shed light on the broadcaster-side video quality issues across three today's personalized streaming platforms and identify its root cause.
+\item Propose three principles to guide the broadcaster design, and for each item, give detailed formulation.
+\item Show both qualitatively and quantitatively that there is a significant room for improving the broadcaster-side video quality by a better design of frame drop scheme and bitrate adaptation algorithm.
+
+%Offer a formal model to qualitatively show the limitations of baseline solutions and empirically quantify the substantial room for improvement by an optimal offline frame-dropping algorithm, and as an early step, propose a practical algorithm that achieves close-to-optimal quality.
+\end{enumerate}
+
+
+\iffalse
+
+\section{Introduction}
+Recent years have witnessed a proliferation of commercial platforms for user-generated live streaming. For example, Twitch reported 241 billion minutes video streaming from individual broadcasters (about 459 thousand years).
+
+In contrast to traditional live streaming (e.g., ESPN) and video on demand, user-generated video streaming two fundamental different requirements. First, the broadcaster side should try to improve video quality in an unstable network (or wireless) environment. For example, occasional network jitters or low throughput are possible when streaming outdoor activities~\cite{xx}. Second, timeliness is a key performance index when a broadcaster streams, because they may need to interact with the audience (e.g., answer questions from chatting system).
+
+Through extensive experiments on existing commercial platforms, we find that none of them can satisfy the above two requirements simultaneously. We observe a "cascading effect" in video streaming. That is, an occasional network jitter (e.g., 100s of ms) can cause video playing be stalled by a much longer time (several seconds). We quantify this effect by experiments and provide a detailed analysis of this cascading effect.
+
+Based on the analysis, we argue that existing alternatives and intuitive baseline solutions fail to achieve the two basic requirements above. HTTP-based video protocols usual divide video into chunks, which granularity cannot satisfy the timeliness requirement; RTMP-based protocols (as we experiments) cannot handle network jitters; and naïve solution such as increasing video buffer to be resistant to dynamic network conditions would increase video buffering delay, which is not preferred.
+
+To find a solution to handle dynamic network conditions in user-generated video live streaming, we first build a formal model to qualitatively compute the optimal solution and show the limitations of baseline solutions. The model also shows that in certain environment settings, there is no low-latency solution, which inspires us to reconsider video frame coding design to be resistant to network jitters.
+
+In this paper, we make the following contributions
+\begin{itemize}
+\item Shed light on the root cause of the cross-layer "cascading effect" in many commercial platforms of user-generated live streaming.
+\item Offer a formal model to qualitatively show the limitations of baseline solutions and empirically quantify the substantial room for improvement by an optimal offline frame-dropping algorithm,
+\item As an early step, propose a practical algorithm that achieves close-to-optimal quality.
+\end{itemize}
+
+
+\fi
+\iffalse
+
+%1. video streaming requires timeliness, usually small buffer 2. however, in case of bad network performance, the video quality is not good enough 3. state of the art: windows based, small threshold 4. however, we claim that the solution can be further improved 5. producer-consumer, we leverage the dependency of frames 6. predict tcp behavior 7. prelimary experiment
+
+User-generated live streaming (e.g., Facebook live, twitch.tv) is gaining its popularity due to its flexibility on location and instantaneity on time. According to Twitch's Retrospective Report 2015, with an average of 1.7 million broadcasters streaming every month, Twitch produced videos of total $241441823059$ minutes each year, which equals to $459366$ years. To avoid queuing latency in live video streaming systems, the streamer side usually adopts shallow buffers or queues to improve timeliness (e.g., the 0.7-second buffer in OBS). In practical scenarios where the underline network fails to provide stable bandwidth (e.g., outdoor streaming), the streamer side usually chooses to drop frames to guarantee the timeliness, sacrificing video completeness.
+
+To improve video quality to the best effort in the scenario of network failures, simple priority drop mechanisms are proposed. These approaches divide a video into time windows where each window contains multiple frames, sort frame by decoding priority (e.g., I frame > P frame > B frame), and send frames in each window from high to low priority by best effort.
+
+However, we argue that with the goal of increase the number of decodable video frames, the window-based approach is not the best approach. The essential reason is that it ignores the dependency between frames across windows.
+
+While in live video streaming systems, frames are produced by a video frame generation thread and consumed by a frame sending thread, which is a typical producer-consumer model. Frames in the buffer are organized naturally in a temporal order. We propose smarter buffer management mechanisms, where we have timeliness as the first-priority goal and meanwhile increase the most number of decodable frames.
+
+In this work, we first measure and show how existing frame drop strategy hampers video quality. Then we model and analyze the root cause of the poor video quality. Consequently, we propose two heuristics to achieve this goal. First, in producer side, we analyze the dependency between the frames in the buffer, and drop lowest-priority frames when the buffer overflows. Second, in consumer side, we analyze TCP sending behavior, and tries to predict TCP window size. If the predicted window size exceeds the frame generation rate, we do not drop frames (tolerating a short-time overflow of the threshold). Finally we use preliminary experiments to validate our design.
+
+
+\fi
+
+
+

@@ -1,0 +1,110 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{color}
+\usepackage{xspace}
+\usepackage[breaklinks=true,colorlinks=true,plainpages=false,citecolor=blue,urlcolor=blue,linkcolor=magenta,filecolor=blue]{hyperref}
+\usepackage{algorithm,algorithmicx}
+\usepackage[noend]{algpseudocode}
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+%\usepackage{times}
+%\usepackage{epsfig}
+%\usepackage{thumbpdf}
+%\usepackage{listings}
+%\usepackage{verbatim}
+%\usepackage{booktabs}
+%\usepackage{colortbl}
+
+
+
+
+\hypersetup{pdfstartview=FitH,pdfpagelayout=SinglePage}
+
+\setlength\paperheight {11in}
+\setlength\paperwidth {8.5in}
+\setlength{\textwidth}{7in}
+\setlength{\textheight}{9.25in}
+\setlength{\oddsidemargin}{-.25in}
+\setlength{\evensidemargin}{-.25in}
+%\setlength{\headsep}{0in}
+\pagenumbering{arabic}
+
+
+
+\def\draft{1}
+
+\ifdefined\draft
+\newcommand{\wenfei}[1]{\textcolor{blue}{[Wenfei:#1]}}
+\newcommand{\jc}[1]{\textcolor{green}{[Junchen: #1]}}
+\newcommand{\note}[1]{\textcolor{red}{Note: #1}}
+%\newcommand{\mylabel}[1]{\textcolor{blue}{LABEL: #1}}
+\newcommand{\mylabel}[1]{}
+\else
+\newcommand{\wenfei}[1]{}
+\newcommand{\jc}[1]{}
+\newcommand{\note}[1]{}
+\newcommand{\mylabel}[1]{}
+\fi
+
+\newcounter{packednmbr}
+
+\newenvironment{packedenumerate}{\begin{list}{\thepackednmbr.}{\usecounter{packednmbr}\setlength{\itemsep}{0.5pt}\addtolength{\labelwidth}{-4pt}\setlength{\leftmargin}{\labelwidth}\setlength{\listparindent}{\parindent}\setlength{\parsep}{1pt}\setlength{\topsep}{0pt}}}{\end{list}}
+
+\newenvironment{packeditemize}{\begin{list}{$\bullet$}{\setlength{\itemsep}{0.5pt}\addtolength{\labelwidth}{-4pt}\setlength{\leftmargin}{\labelwidth}\setlength{\listparindent}{\parindent}\setlength{\parsep}{1pt}\setlength{\topsep}{0pt}}}{\end{list}}
+
+\newenvironment{packedpackeditemize}{\begin{list}{$\bullet$}{\setlength{\itemsep}{0.5pt}\addtolength{\labelwidth}{-4pt}\setlength{\leftmargin}{\labelwidth}\setlength{\listparindent}{\parindent}\setlength{\parsep}{1pt}\setlength{\topsep}{0pt}}}{\end{list}}
+
+\newenvironment{packedtrivlist}{\begin{list}{\setlength{\itemsep}{0.2pt}\addtolength{\labelwidth}{-4pt}\setlength{\leftmargin}{\labelwidth}\setlength{\listparindent}{\parindent}\setlength{\parsep}{1pt}\setlength{\topsep}{0pt}}}{\end{list}}
+
+\newcommand{\mypara}[1]{\smallskip\noindent{\bf {#1}:}~}
+\newcommand{\myparatight}[1]{\vspace{0.03cm}\noindent{\bf {#1}:}~}
+
+\newcommand{\mywrite}{{\tt write()}}\xspace
+
+\begin{document}
+%\conferenceinfo{APNet 2017} {}
+%\CopyrightYear{2017}
+%\crdata{X}
+%\date{}
+%\graphicspath{{fig/}}%SONG%
+
+%%%%%%%%%%%% THIS IS WHERE WE PUT IN THE TITLE AND AUTHORS %%%%%%%%%%%%
+
+\title{Improving Quality of Experience for Mobile Broadcasters in Personalized Live Video Streaming}
+
+\author{Anonymous}
+
+\maketitle
+
+%\thispagestyle{empty}
+
+%%%%%%%%%%%%%  ABSTRACT GOES HERE %%%%%%%%%%%%%%
+\subsection*{Abstract}
+
+\input{1_introduction.tex}
+%\input{intro_junchen.tex}
+\input{2_background.tex}
+\input{3_measurement.tex}
+\input{4_rootcause.tex}
+\input{4_design_space.tex}
+\input{5_design.tex}
+\input{6_related_work.tex}
+\input{7_conclusion.tex}
+
+
+
+%\nocite{*}
+%\section*{Acknowledgments}
+
+\bibliographystyle{abbrv}
+\begin{small}
+\bibliography{paper}
+\end{small}
+\label{last-page}
+
+\end{document}
+

@@ -1,0 +1,19 @@
+\begin{table}[tb]
+\centering
+\caption{Terminology in Adaptive Bitrate}
+\label{tbl:vbrval}
+{\setlength{\tabcolsep}{1pt}
+\begin{tabular}{|c|c|l|}
+\hline
+\textbf{Symbol} & \textbf{Type} & \textbf{Meaning}                      \\ \hline
+$j$               & index         & frame index                            \\ \hline
+$R_j$             & variable      & the bitrate of frame $j$ \\ \hline
+$N_j$             & variable      & No. of the GoPs at time $j$     \\ \hline
+$D_j$             & variable      & whether frame $i$ is dropped at time $j$  \\ \hline
+$Send_j$             & variable   & No. of frame send at time $j$ \\ \hline
+$C_j$              & variable         & network bandwidth at time $j$           \\ \hline
+$T_k^j$               & variable         &the remaining time of $k$ GoP at time $j$  \\ \hline
+$R_k^j$            & variable         & the bitrate of $k$ GoP at time $j$  \\ \hline
+$Drop_j$       & variable & whether the drop would happen at time $j$ \\ \hline
+$T$               & const         & decision time                        \\ \hline\end{tabular}}
+\end{table}

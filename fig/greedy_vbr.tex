@@ -1,0 +1,12 @@
+\begin{algorithm}[h]
+\caption{Greedy Video Adaptation Workflow}
+\label{alg:greedy-vbr}\mylabel{alg:greedy-vbr}
+\begin{algorithmic}[1]
+\State Initialize
+\For{j=1 to T}
+\State $C_j := ThroughpurPred(C_{[\tau,j-1]})$
+\State $R_j := FindClosestBr(C_j)$
+\State $D_j := f(C_j, R_j)$
+\EndFor
+\end{algorithmic}
+\end{algorithm} 

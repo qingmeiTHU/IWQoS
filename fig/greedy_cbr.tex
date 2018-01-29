@@ -1,0 +1,23 @@
+\begin{algorithm}[tb]
+\caption{Greedy Frame Enqueue Management}
+\label{alg:greedy-drop}\mylabel{alg:greedy-drop}
+\begin{algorithmic}[1]
+\State \textbf{Input:} {frame, bandwidth}
+\State T1 := 0.9s
+\If{frame is I frame}
+\State dropPFrame := False
+\State \Call{Enqueue}{queue, frame}
+\State timespan:= timespan + 1 
+\EndIf
+\If{frame is P frame}
+\If{dropPFrame or timespan > T1}
+\State \Call{Drop}{frame}, drop all the P frames until the next I frame
+\State dropPFrame := True
+\Else
+\State \Call{Enqueue}{queue, frame}
+\State timespan := timespan + 1
+\EndIf
+\EndIf
+\State timespan := timespan - \Call{Send}{bandwidth}
+\end{algorithmic}
+\end{algorithm}

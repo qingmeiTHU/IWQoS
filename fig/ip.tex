@@ -1,0 +1,18 @@
+\begin{figure}[tb]
+\centering
+{\setlength{\tabcolsep}{3pt}
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{2}{|c|}{ maximize $\Sigma_i y_{iT}$, subject to} \\ \hline \hline
+ $x_{ij}+y_{ij}+z_{ij} = 0, \forall j<i$       & (1)        \\
+ $x_{ij}+y_{ij}+z_{ij} = 1, \forall j\geq i$   & (2)       \\
+ $x_{ij} \geq x_{i,j+1}, \forall j\geq i$      & (3)        \\
+ $y_{ij} \leq y_{i,j+1}, \forall j\geq i$      & (4)        \\
+ $z_{ij} \leq z_{i,j+1}, \forall j\geq i$      & (4)        \\ \hline
+ $y_{ij} = \max\{1,{1-z_{i,j-1}}\}, \forall j, i \leq M_{j}$  & (5)   \\ \hline
+ $y_{ij}+z_{ij} = 1 ,\forall j>i+T_2$          & (6)        \\ \hline
+ $y_{i+1,T} \geq y_{iT}, \forall i \not\equiv N-1 (\text{mod}N)$ &(7) \\ \hline
+\end{tabular}}
+\caption{Frame Drop Strategy}
+\label{fig:ip-program} \mylabel{fig:ip-program}
+\end{figure}
