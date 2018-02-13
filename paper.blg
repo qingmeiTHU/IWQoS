@@ -3,6 +3,10 @@ White space in argument---line 27 of file paper.aux
  : \citation{some
  :                paper to show this}
 I'm skipping whatever remains of this command
+Stuff after "}"---line 123 of file paper.aux
+ : \citation{inproceedings{pires2014dash
+ :                                      }}
+I'm skipping whatever remains of this command
 The style file: abbrv.bst
 Database file #1: paper.bib
 Warning--I didn't find a database entry for "dash"
@@ -14,4 +18,4 @@ Warning--to sort, need author or key in facebook
 Warning--to sort, need author or key in periscope
 Warning--to sort, need author or key in twitch
 Warning--to sort, need author or key in douyu
-(There was 1 error message)
+(There were 2 error messages)
