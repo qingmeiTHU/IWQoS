@@ -6,17 +6,18 @@
 \BOOKMARK [1][-]{section.3}{Measurement and Analysis}{}% 6
 \BOOKMARK [2][-]{subsection.3.1}{Motivating Examples}{section.3}% 7
 \BOOKMARK [2][-]{subsection.3.2}{Analyzing the Root Cause}{section.3}% 8
-\BOOKMARK [1][-]{section.4}{Design Space}{}% 9
-\BOOKMARK [2][-]{subsection.4.1}{Design Space Insight}{section.4}% 10
-\BOOKMARK [2][-]{subsection.4.2}{Preliminary Evaluation}{section.4}% 11
-\BOOKMARK [1][-]{section.5}{Our Solution and Evaluation}{}% 12
-\BOOKMARK [2][-]{subsection.5.1}{Best GoP}{section.5}% 13
-\BOOKMARK [2][-]{subsection.5.2}{Drop Strategy}{section.5}% 14
-\BOOKMARK [3][-]{subsubsection.5.2.1}{Problem Formulation}{subsection.5.2}% 15
-\BOOKMARK [3][-]{algorithm.2}{Greedy Algorithm}{subsection.5.2}% 16
-\BOOKMARK [2][-]{subsection.5.3}{Adaptive Bitrate}{section.5}% 17
-\BOOKMARK [3][-]{section*.19}{Problem Formulation}{subsection.5.3}% 18
-\BOOKMARK [3][-]{algorithm.3}{Effective Solution}{subsection.5.3}% 19
-\BOOKMARK [1][-]{section.6}{Related Work}{}% 20
-\BOOKMARK [1][-]{section.7}{Conclusion and Future Work}{}% 21
-\BOOKMARK [1][-]{section*.22}{References}{}% 22
+\BOOKMARK [2][-]{subsection.3.3}{Design Space Insight}{section.3}% 9
+\BOOKMARK [1][-]{section.4}{Solution}{}% 10
+\BOOKMARK [2][-]{subsection.4.1}{Drop Strategy}{section.4}% 11
+\BOOKMARK [3][-]{figure.caption.13}{Problem Formulation}{subsection.4.1}% 12
+\BOOKMARK [3][-]{algorithm.2}{Greedy Algorithm}{subsection.4.1}% 13
+\BOOKMARK [2][-]{subsection.4.2}{Adaptive Bitrate}{section.4}% 14
+\BOOKMARK [3][-]{section*.15}{Problem Formulation}{subsection.4.2}% 15
+\BOOKMARK [3][-]{algorithm.3}{Effective Solution}{subsection.4.2}% 16
+\BOOKMARK [1][-]{section.5}{Evaluation}{}% 17
+\BOOKMARK [2][-]{subsection.5.1}{Best GoP}{section.5}% 18
+\BOOKMARK [2][-]{subsection.5.2}{Greedy Drop Strategy}{section.5}% 19
+\BOOKMARK [2][-]{subsection.5.3}{Greedy Adaptive Bitrate}{section.5}% 20
+\BOOKMARK [1][-]{section.6}{Related Work}{}% 21
+\BOOKMARK [1][-]{section.7}{Conclusion and Future Work}{}% 22
+\BOOKMARK [1][-]{section*.22}{References}{}% 23

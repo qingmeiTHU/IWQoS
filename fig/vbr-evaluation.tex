@@ -1,12 +1,20 @@
-\begin{figure}[htb]
-\centering
-\begin{subfigure}[b]{.8\columnwidth}
-\centering
+\begin{figure*}[htb]
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{fig/specific_fcc.pdf}
+  \caption{Throughput of FCC dataset}
+  \label{fig:fcc_specific}\mylabel{fig:fcc_specific}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{fig/specific_hsdpa.pdf}
+  \caption{Throughput of HSDPA dataset}
+  \label{fig:specific_hsdpa}\mylabel{fig:specific_hsdpa}
+\endminipage
+\minipage{0.32\textwidth}
 \includegraphics[width=\textwidth]{fig/massive_qoe.pdf}
 \caption{Normalized bitrate, black screen and QoE for four algorithms}
 \label{fig:vbr-qoe}\mylabel{fig:vbr-qoe}
-\end{subfigure}
-\end{figure}
+\endminipage
+\end{figure*} 
 
 \begin{figure*}[htb]
 \minipage{0.32\textwidth}

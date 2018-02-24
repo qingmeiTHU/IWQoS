@@ -1,7 +1,16 @@
 \begin{thebibliography}{10}
 
+\bibitem{dummynet}
+http://info.iet.unipi.it/~luigi/dummynet/.
+
+\bibitem{twitter}
+https://en.wikipedia.org/wiki/meerkat(app).
+
 \bibitem{facebook}
 https://live.fb.com/.
+
+\bibitem{OBS}
+https://obsproject.com/.
 
 \bibitem{douyu}
 https://www.douyu.com/.
@@ -15,8 +24,8 @@ https://www.twitch.tv/.
 \bibitem{iqiyi}
 http://www.iqiyi.com/.
 
-\bibitem{twitter}
-\url{https://en.wikipedia.org/wiki/Meerkat_(app)}.
+\bibitem{x264}
+http://www.videolan.org/developers/x264.html.
 
 \bibitem{huang2003adaptive}
 J.~Huang, C.~Krasic, and J.~Walpole.
@@ -30,6 +39,13 @@ C.~Krasic, J.~Walpole, and W.-c. Feng.
 \newblock In {\em Proceedings of the 13th international workshop on Network and
   operating systems support for digital audio and video}, pages 112--121. ACM,
   2003.
+
+\bibitem{pires2014dash}
+K.~Pires and G.~Simon.
+\newblock Dash in twitch: Adaptive bitrate streaming in live game streaming
+  platforms.
+\newblock In {\em Proceedings of the 2014 Workshop on Design, Quality and
+  Deployment of Adaptive Video Streaming}, pages 13--18. ACM, 2014.
 
 \bibitem{seo2012experimental}
 B.~Seo, W.~Cui, and R.~Zimmermann.
@@ -64,6 +80,12 @@ B.~Wang, X.~Zhang, G.~Wang, H.~Zheng, and B.~Y. Zhao.
 \newblock Anatomy of a personalized livestreaming system.
 \newblock In {\em Proceedings of the 2016 ACM on Internet Measurement
   Conference}, pages 485--498. ACM, 2016.
+
+\bibitem{wang2004image}
+Z.~Wang, A.~C. Bovik, H.~R. Sheikh, and E.~P. Simoncelli.
+\newblock Image quality assessment: from error visibility to structural
+  similarity.
+\newblock {\em IEEE transactions on image processing}, 13(4):600--612, 2004.
 
 \bibitem{wilk2016leveraging}
 S.~Wilk, R.~Zimmermann, and W.~Effelsberg.
