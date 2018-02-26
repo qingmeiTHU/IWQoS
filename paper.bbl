@@ -1,5 +1,8 @@
 \begin{thebibliography}{10}
 
+\bibitem{HSDPA_dataset}
+http://home.ifi.uio.no/paalh/dataset/hsdpa-tcp-logs/.
+
 \bibitem{dummynet}
 http://info.iet.unipi.it/~luigi/dummynet/.
 
@@ -9,11 +12,17 @@ https://en.wikipedia.org/wiki/meerkat(app).
 \bibitem{facebook}
 https://live.fb.com/.
 
+\bibitem{video_dataset}
+https://media.xiph.org/video/derf/.
+
 \bibitem{OBS}
 https://obsproject.com/.
 
 \bibitem{douyu}
 https://www.douyu.com/.
+
+\bibitem{FCC_dataset}
+https://www.fcc.gov/measuring-broadband-america.
 
 \bibitem{periscope}
 https://www.pscp.tv/.
@@ -27,11 +36,31 @@ http://www.iqiyi.com/.
 \bibitem{x264}
 http://www.videolan.org/developers/x264.html.
 
+\bibitem{bouzakaria2014overhead}
+N.~Bouzakaria, C.~Concolato, and J.~Le~Feuvre.
+\newblock Overhead and performance of low latency live streaming using
+  mpeg-dash.
+\newblock In {\em Information, Intelligence, Systems and Applications, IISA
+  2014, The 5th International Conference on}, pages 92--97. IEEE, 2014.
+
+\bibitem{de2011feedback}
+L.~De~Cicco, S.~Mascolo, and V.~Palmisano.
+\newblock Feedback control for adaptive live video streaming.
+\newblock In {\em Proceedings of the second annual ACM conference on Multimedia
+  systems}, pages 145--156. ACM, 2011.
+
 \bibitem{huang2003adaptive}
 J.~Huang, C.~Krasic, and J.~Walpole.
 \newblock Adaptive live video streaming by priority drop.
 \newblock In {\em AVSS'03 Proceedings of the IEEE Conference on Advanced Video
   and Signal Based Surveillance}, 2003.
+
+\bibitem{jiang2014improving}
+J.~Jiang, V.~Sekar, and H.~Zhang.
+\newblock Improving fairness, efficiency, and stability in http-based adaptive
+  video streaming with festive.
+\newblock {\em IEEE/ACM Transactions on Networking (TON)}, 22(1):326--340,
+  2014.
 
 \bibitem{krasic2003quality}
 C.~Krasic, J.~Walpole, and W.-c. Feng.
@@ -92,6 +121,13 @@ S.~Wilk, R.~Zimmermann, and W.~Effelsberg.
 \newblock Leveraging transitions for the upload of user-generated mobile video.
 \newblock In {\em Proceedings of the 8th International Workshop on Mobile
   Video}, page~5. ACM, 2016.
+
+\bibitem{yin2015control}
+X.~Yin, A.~Jindal, V.~Sekar, and B.~Sinopoli.
+\newblock A control-theoretic approach for dynamic adaptive video streaming
+  over http.
+\newblock {\em ACM SIGCOMM Computer Communication Review}, 45(4):325--338,
+  2015.
 
 \bibitem{zhang2015crowdsourced}
 C.~Zhang and J.~Liu.

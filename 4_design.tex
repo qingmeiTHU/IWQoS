@@ -42,13 +42,13 @@ In this section, we try to handle the long-term bandwidth fading issue. From the
 
 Problem can be formulated as follows \ref{vbr-formulation}, Variables is all defined in Table~\ref{tbl:vbrval}. Variables and are the utility parameter of bitrate switch and frame dropping. $sgn$ is the sign function, when the variable greater than zero, it equals 1; otherwise equals zero. $mod$ is the operation of taking remainder.
 
-\textbf{Bitrate Constraint} Constraint \ref{vbr-bitrate} requires that bitrate within one GoP must keep the same.
+\textbf{Bitrate Constraint.} Constraint \ref{vbr-bitrate} requires that bitrate within one GoP must keep the same.
 
-\textbf{Bandwidth Constraint} Equation \ref{vbr-send} calculates the most number of GoPs can be send within the limited bandwidth.
+\textbf{Bandwidth Constraint.} Equation \ref{vbr-send} calculates the most number of GoPs can be send within the limited bandwidth.
 
-\textbf{Timeliness Constraint} \ref{vbr-drop} judges whether the remaining time after sending exceeds the buffer limit and \ref{vbr-drop-no} give the number of dropped frames in time $j$.
+\textbf{Timeliness Constraint.} \ref{vbr-drop} judges whether the remaining time after sending exceeds the buffer limit and \ref{vbr-drop-no} give the number of dropped frames in time $j$.
 
-\textbf{State Transition} Constraints \ref{vbr-bitrate-next}, \ref{vbr-bitrate-spec}, \ref{vbr-time-next}, \ref{vbr-time-spec}, \ref{vbr-time-spec2} show the state transition of the bitrate and remaining time of several GoPs in buffer. Equations \ref{vbr-gop-no} describes the number of GoPs in the next time slot $j+1$, the last two items $1-sgn(j{mod}M)$ represents whether the $j-th$ frame is the keyframe.
+\textbf{State Transition.} Constraints \ref{vbr-bitrate-next}, \ref{vbr-bitrate-spec}, \ref{vbr-time-next}, \ref{vbr-time-spec}, \ref{vbr-time-spec2} show the state transition of the bitrate and remaining time of several GoPs in buffer. Equations \ref{vbr-gop-no} describes the number of GoPs in the next time slot $j+1$, the last two items $1-sgn(j{mod}M)$ represents whether the $j-th$ frame is the keyframe.
 
 Offline optimal is hard to calculate. Guess for each GoP, the broadcaster can choose one from total $M$ bitrate candidates. For a $T$ GoP decision, the computation complexity equals to $M^T$, a exponential complexity.
 
