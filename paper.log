@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2017.3.30)  25 FEB 2018 20:02
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2017.3.30)  26 FEB 2018 12:49
 entering extended mode
 **paper.tex
 (E:\IWQoS\paper.tex
@@ -610,79 +610,77 @@ File: fig/eval_IframeInterval_drop.pdf Graphic file (type pdf)
 <use fig/eval_IframeInterval_drop.pdf>
 Package pdftex.def Info: fig/eval_IframeInterval_drop.pdf used on input line 5.
 
-(pdftex.def)             Requested size: 197.55673pt x 148.39688pt.
-) (E:\IWQoS\fig/SSIM_GoP.tex
-<fig/ssim_gop.pdf, id=606, 462.52798pt x 346.89601pt>
+(pdftex.def)             Requested size: 111.12448pt x 83.46886pt.
+
+<fig/ssim_gop.pdf, id=605, 462.52798pt x 346.89601pt>
 File: fig/ssim_gop.pdf Graphic file (type pdf)
  <use fig/ssim_gop.pdf>
-Package pdftex.def Info: fig/ssim_gop.pdf used on input line 3.
-(pdftex.def)             Requested size: 161.8885pt x 121.41542pt.
+Package pdftex.def Info: fig/ssim_gop.pdf used on input line 11.
+(pdftex.def)             Requested size: 111.12448pt x 83.34143pt.
 )
 (E:\IWQoS\fig/no_drop_frame.tex) (E:\IWQoS\fig/drop-evaluation.tex
 <fig/drop-buffer.pdf, id=611, 462.52798pt x 346.89601pt>
 File: fig/drop-buffer.pdf Graphic file (type pdf)
 
 <use fig/drop-buffer.pdf>
-Package pdftex.def Info: fig/drop-buffer.pdf used on input line 3.
-(pdftex.def)             Requested size: 161.8885pt x 121.41542pt.
+Package pdftex.def Info: fig/drop-buffer.pdf used on input line 5.
+(pdftex.def)             Requested size: 111.12448pt x 83.34143pt.
 
 <fig/drop-bandwidth.pdf, id=612, 462.52798pt x 346.89601pt>
 File: fig/drop-bandwidth.pdf Graphic file (type pdf)
 
 <use fig/drop-bandwidth.pdf>
-Package pdftex.def Info: fig/drop-bandwidth.pdf used on input line 8.
-(pdftex.def)             Requested size: 161.8885pt x 121.41542pt.
-) [8 <E:/IWQoS/fig/eval_IframeInterval_drop.pdf> <E:/IWQoS/fig/ssim_gop.pdf>] (
-E:\IWQoS\fig/vbr-evaluation.tex
-<fig/specific_fcc.pdf, id=706, 433.62pt x 346.89601pt>
+Package pdftex.def Info: fig/drop-bandwidth.pdf used on input line 11.
+(pdftex.def)             Requested size: 111.12448pt x 83.34143pt.
+) [8 <E:/IWQoS/fig/eval_IframeInterval_drop.pdf> <E:/IWQoS/fig/ssim_gop.pdf> <E
+:/IWQoS/fig/drop-buffer.pdf> <E:/IWQoS/fig/drop-bandwidth.pdf>] (E:\IWQoS\fig/v
+br-evaluation.tex
+<fig/specific_fcc.pdf, id=778, 433.62pt x 346.89601pt>
 File: fig/specific_fcc.pdf Graphic file (type pdf)
 
 <use fig/specific_fcc.pdf>
 Package pdftex.def Info: fig/specific_fcc.pdf used on input line 3.
 (pdftex.def)             Requested size: 161.8885pt x 129.50871pt.
 
-<fig/specific_hsdpa.pdf, id=707, 433.62pt x 346.89601pt>
+<fig/specific_hsdpa.pdf, id=779, 433.62pt x 346.89601pt>
 File: fig/specific_hsdpa.pdf Graphic file (type pdf)
 
 <use fig/specific_hsdpa.pdf>
 Package pdftex.def Info: fig/specific_hsdpa.pdf used on input line 8.
 (pdftex.def)             Requested size: 161.8885pt x 129.50871pt.
 
-<fig/massive_qoe.pdf, id=708, 433.62pt x 346.89601pt>
+<fig/massive_qoe.pdf, id=780, 433.62pt x 346.89601pt>
 File: fig/massive_qoe.pdf Graphic file (type pdf)
 
 <use fig/massive_qoe.pdf>
 Package pdftex.def Info: fig/massive_qoe.pdf used on input line 13.
 (pdftex.def)             Requested size: 161.8885pt x 129.50871pt.
 
-<fig/massive-bitrate-cdf.pdf, id=709, 462.52798pt x 346.89601pt>
+<fig/massive-bitrate-cdf.pdf, id=781, 462.52798pt x 346.89601pt>
 File: fig/massive-bitrate-cdf.pdf Graphic file (type pdf)
 
 <use fig/massive-bitrate-cdf.pdf>
 Package pdftex.def Info: fig/massive-bitrate-cdf.pdf used on input line 21.
 (pdftex.def)             Requested size: 161.8885pt x 121.41542pt.
 
-<fig/massive-drop-cdf.pdf, id=710, 462.52798pt x 346.89601pt>
+<fig/massive-drop-cdf.pdf, id=782, 462.52798pt x 346.89601pt>
 File: fig/massive-drop-cdf.pdf Graphic file (type pdf)
 
 <use fig/massive-drop-cdf.pdf>
 Package pdftex.def Info: fig/massive-drop-cdf.pdf used on input line 26.
 (pdftex.def)             Requested size: 161.8885pt x 121.41542pt.
 
-<fig/massive-qoe-cdf.pdf, id=711, 462.52798pt x 346.89601pt>
+<fig/massive-qoe-cdf.pdf, id=783, 462.52798pt x 346.89601pt>
 File: fig/massive-qoe-cdf.pdf Graphic file (type pdf)
 
 <use fig/massive-qoe-cdf.pdf>
 Package pdftex.def Info: fig/massive-qoe-cdf.pdf used on input line 31.
 (pdftex.def)             Requested size: 161.8885pt x 121.41542pt.
-)) (E:\IWQoS\6_related_work.tex [9 <E:/IWQoS/fig/drop-buffer.pdf> <E:/IWQoS/fig
-/drop-bandwidth.pdf>]) (E:\IWQoS\7_conclusion.tex)
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-(E:\IWQoS\paper.bbl [10 <E:/IWQoS/fig/specific_fcc.pdf> <E:/IWQoS/fig/specific_
-hsdpa.pdf> <E:/IWQoS/fig/massive_qoe.pdf> <E:/IWQoS/fig/massive-bitrate-cdf.pdf
-> <E:/IWQoS/fig/massive-drop-cdf.pdf> <E:/IWQoS/fig/massive-qoe-cdf.pdf>])
+)) (E:\IWQoS\6_related_work.tex)
+(E:\IWQoS\7_conclusion.tex) [9] (E:\IWQoS\paper.bbl [10 <E:/IWQoS/fig/specific_
+fcc.pdf> <E:/IWQoS/fig/specific_hsdpa.pdf> <E:/IWQoS/fig/massive_qoe.pdf> <E:/I
+WQoS/fig/massive-bitrate-cdf.pdf> <E:/IWQoS/fig/massive-drop-cdf.pdf> <E:/IWQoS
+/fig/massive-qoe-cdf.pdf>])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -703,7 +701,7 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 111.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 111.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 111.
 Package rerunfilecheck Info: File `paper.out' has not changed.
-(rerunfilecheck)             Checksum: 1464AC01EB68E028C5C5B3F90ABC3708;1502.
+(rerunfilecheck)             Checksum: 5C7A4CBCFFECFD01514E252BDFEFFF5A;1502.
 
 
 LaTeX Warning: There were undefined references.
@@ -711,9 +709,9 @@ LaTeX Warning: There were undefined references.
  ) 
 Here is how much of TeX's memory you used:
  8367 strings out of 495354
- 129735 string characters out of 3183523
- 241006 words of memory out of 3000000
- 11265 multiletter control sequences out of 15000+200000
+ 129732 string characters out of 3183523
+ 241226 words of memory out of 3000000
+ 11269 multiletter control sequences out of 15000+200000
  39611 words of font info for 80 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  36i,12n,38p,1283b,483s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -742,9 +740,9 @@ X/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb><D:/Latex/CTEX/MiKTeX/fonts/t
 ype1/urw/courier/ucrr8a.pfb><D:/Latex/CTEX/MiKTeX/fonts/type1/urw/times/utmb8a.
 pfb><D:/Latex/CTEX/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><D:/Latex/CTEX/MiKTe
 X/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (11 pages, 1114548 bytes).
+Output written on paper.pdf (11 pages, 1114334 bytes).
 PDF statistics:
- 1130 PDF objects out of 1200 (max. 8388607)
- 97 named destinations out of 1000 (max. 500000)
+ 1127 PDF objects out of 1200 (max. 8388607)
+ 96 named destinations out of 1000 (max. 500000)
  305 words of extra memory for PDF output out of 10000 (max. 10000000)
 
