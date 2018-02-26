@@ -1,13 +1,8 @@
 This is BibTeX, Version 0.99dThe top-level auxiliary file: paper.aux
-White space in argument---line 27 of file paper.aux
- : \citation{some
- :                paper to show this}
-I'm skipping whatever remains of this command
 The style file: abbrv.bst
 Database file #1: paper.bib
-Warning--I didn't find a database entry for "dash"
 Warning--to sort, need author or key in twitter
-Warning--to sort, need author or key in iqiyi
+Warning--to sort, need author or key in panda
 Warning--to sort, need author or key in facebook
 Warning--to sort, need author or key in periscope
 Warning--to sort, need author or key in twitch
@@ -18,4 +13,4 @@ Warning--to sort, need author or key in FCC_dataset
 Warning--to sort, need author or key in HSDPA_dataset
 Warning--to sort, need author or key in x264
 Warning--to sort, need author or key in video_dataset
-(There was 1 error message)
+(There were 12 warnings)

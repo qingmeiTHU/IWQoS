@@ -5,15 +5,13 @@ streaming. With more personal devices equipped with high-definition
 cameras, we observe a rapid proliferation of apps that allow users
 to stream videos from their smartphones or tablets to anyone who
 tunes in. Such personalized live streaming has found its world-wide
-popularity as a way of engaging with more followers (e.g., Twitter Meerkat~\cite{twitter}, iQIYI~\cite{iqiyi}),
+popularity as a way of engaging with more followers (e.g., Twitter Meerkat~\cite{twitter}, Panda Tv~\cite{panda},
 sharing richer experience (e.g., Facebook Live~\cite{facebook}, Periscope~\cite{periscope}),
 and broadcasting online gaming and sports events (e.g., Twitch~\cite{twitch}, Douyu~\cite{douyu}).
-%For instance, Twitch streamed 241 billion minutes of videos from its users in 2015~\cite{??}, which is on par with live streaming traffic on ESPN~\cite{}.
-%It is also being widely used in other countries, such as China (\cite{qixiu,douyu,??}).
 
 
 % what's new
-While recent work on personalized live streaming has insofar
+While recent work on personalized live streaming has insofar 
 focused on its traffic pattern (e.g.,~\cite{zhang2015crowdsourced,tang2016meerkat})
 and video distribution architecture (e.g.,~\cite{siekkinen2016first,wang2016anatomy}),
 not enough efforts have been made to characterize the
@@ -60,20 +58,19 @@ Despite its significance, today's QoE of broadcaster-uploaded video,
 according to our experiments, is not desirable and we observe two {\em prevalent}
 quality issues across many popular platforms in the wild.
 In particular, we observe an ``amplifying effect'' of network
-condition on video QoE: {\em a transient throughput  degradation
+condition on video QoE: {\em a transient throughput degradation
 of less than a second on the broadcaster side can lead to
-several seconds of video stall observed by the viewers}. Besides, {\em long-term network fading is not rare in real world}.
+several seconds of video stall observed by the viewers}. Besides, {\em state-of-art broadcasters are unable to effectively respond to long-term throughput drop}.
 Such problem is particularly prevalent, because the broadcasters
 (e.g., smartphones, tablets) are often wireless-connected and, both
-long-lived degradation and transient throughput drops are not
-uncommon~\cite{some paper to show this}  in today's wireless networks,
+long-lived degradation and transient throughput drops are common in today's wireless networks,
 due to cellular hand-off, WiFi-cellular
 switch, device moving-around and so forth.
 
 
 % we figured out the root cause
 The root cause of this broadcaster-side "amplifying" quality problem
-lies in the fact that RTMP, the de-facto broadcaster-side streaming protocol,
+lies in the fact that RTMP, the de-facto video broadcaster-side streaming protocol,
 drops video frames too aggressively when video buffer overflow
 occurs, resulting in unnecessary drops of important video frames and
 persistent video stalls on the viewer side.
@@ -86,7 +83,7 @@ For instance, simply increasing buffer size on the broadcaster
 side hides transient throughput drops but may cause end-to-end
 delay to grow unboundedly.
 
-For the long-term network drops, state-of-art related works focus on the player strategy in DASH. Little try is put into the research of broadcaster' side. Using the complete MPC is one possible solution, but different from DASH, in live video streaming, buffer is little to have improve space. Besides, RobustMPC takes long time to calculate and FastMPC may introduce some quantization error.
+For the long-term network drops, state-of-art related works mainly focus on the player strategy in VoD(video on demand). Little try is put into the research of broadcaster' side. State-of-art video adaptation methods work well in VoD case, but live streaming has difference. In live video streaming, buffer is little to have improve space. More targeted and effective algorithms should be proposed.
 
 % key insight in our solution
 We argue that such broadcaster-side quality issues are reduced significantly
