@@ -3,6 +3,7 @@
 To meet the delay constraints, there are two kinds of solution. One is to limit the timeliness of the sender buffer, i.e., strictly restrain each frame to meet the time requirements; the other may be controlled by scheduling to maintain the average of delay at the target value. Using this method, the largest end-to-end delay may be quite big. In our case, the first one is our choice. We limit the buffer size to $0.9s$.
 
 With buffer size limited, the previous motivating example gives us three intuitions to improve the video streaming quality.
+
 \textbf{Eliminate the dependency between frames.}
 By this means, the solution space would be larger and more optimal solutions are expected to be found.
 

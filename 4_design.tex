@@ -1,7 +1,14 @@
 \newcommand{\Mod}[1]{\text{ (mod } #1\text{)}}
-\section{Solution}
-According to the design principles, a better drop strategy and practical video adaptation are discussed in this section.
+\section{Our Solution}
+In this section, we present GVBR, a suite of techniques built on the 
+aforementioned design principles to optimize personalized live streaming 
+quality. 
+In particular, GVBR optimizes the adaptation at frame-level 
+(Section~\ref{subsec:drop-strategy}), as well as GOP-level 
+(Section~\ref{subsec:adaptive-bitrate}).
+
 \subsection{Drop Strategy}
+\label{subsec:drop-strategy}
 \subsubsection{Problem Formulation}
 \input{fig/variables.tex}
 \input{fig/ip.tex}
@@ -34,6 +41,7 @@ DP can achieve the offline optimal. Nevertheless long-term bandwidth is unknowab
 \textbf{Algorithm Description.} Considering the encode dependency within a GoP, we propose a modified dropping algorithm, GreedyDrop, Algorithm ~\ref{alg:greedy-drop}, towards default OBS. Differing from dropping all the P frames in buffer by default, greedy algorithm optimizes one more case, where two or more GoPs coexist in buffer. GreedyDrop drops all the P frames until the next keyframe so the latest GoP can be reserved and our algorithm avoid frame dropping at least one GoP. A little modification performs much better.
 
 \subsection{Adaptive Bitrate}
+\label{subsec:adaptive-bitrate}
 \subsubsection{Problem Formulation}
 \input{fig/vbr_variable.tex}
 \input{fig/vbr.tex}

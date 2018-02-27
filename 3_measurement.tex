@@ -1,4 +1,10 @@
-\section{Measurement and Analysis}
+\section{Understanding the quality issues in the wild}
+
+In this section, we show several broadcaster-side quality degradation issues 
+using measurement results on several popular personalized live streaming 
+platforms. We then analyze the various root causes behind these issues, which 
+informs the design of our solutions.
+
 \subsection{Motivating Examples}
 \input{fig/setup.tex}
 \textbf{Experiment setup.} We set up a live video streaming framework as in Figure~\ref{fig:setup}. The demo comprises two modules, namely broadcaster and audience, which are connected by a switch in the middle. Servers both have 2 CPU cores and 6GB memory, and are equipped with $100$Mbps NICs. OBS studio\cite{OBS} is one of the most popular broadcast softwares and is used to stream videos to the audience side over RTMP protocol. We use both tc modules of linux and dummynet\cite{dummynet} to control the real-time upload bandwidth of broadcaster. The receiving server is built on nginx-rtmp module. On the audience server, VLC player is used to play the rtmp streaming.
