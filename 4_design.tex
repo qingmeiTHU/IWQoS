@@ -1,11 +1,11 @@
 \newcommand{\Mod}[1]{\text{ (mod } #1\text{)}}
 \section{Solution}
-According to the design principles, better drop strategy and practical video adaptation is discussed in this section.
+According to the design principles, a better drop strategy and practical video adaptation are discussed in this section.
 \subsection{Drop Strategy}
 \subsubsection{Problem Formulation}
 \input{fig/variables.tex}
 \input{fig/ip.tex}
-For the constant bitrate case, assume the pace of video frame and network bandwidth are known, there exists an optimal scheduling regarding maximize audience QoE within the system constraints (bandwidth and queue timeliness length). Actually a group of pictures always compose of three kinds of frames, I/P/B frames, here for simpleness, we delete the B frame to study the fundamental problem. The problem can be formulated by integer programming (Figure~\ref{fig:ip-program}). Terminologies are defined in Table~\ref{tbl:term}. We discretize time into time stamps from $0$ to $T$, and assume the frame with index $i$ is generated at time $i$. We define $x_{ij}$, $y_{ij}$, $z_{ij}$ as 0/1 variables to describe whether a packet is in the queue, sent or dropped.
+For the constant bitrate case, assuming the pace of video frame and network bandwidth are known, there exists an optimal scheduling regarding maximizing audience QoE within the system constraints (bandwidth and queue timeliness length). Actually a group of pictures always comprise three kinds of frames, namely I/P/B frames. Here for simpleness, we delete the B frame to study the fundamental problem. The problem can be formulated by integer programming (Figure~\ref{fig:ip-program}). Terminologies are defined in Table~\ref{tbl:term}. We discretize time into time stamps from $0$ to $T$, and assume the frame with index $i$ is generated at time $i$. We define $x_{ij}$, $y_{ij}$, $z_{ij}$ as 0/1 variables to describe whether a packet is in the queue, sent or dropped respectively.
 
 \textbf{Frame conservation constraints.}
 Frame $i$ is generated at time $i$, and after that, it is either in the queue or sent or dropped (1-2).
@@ -13,49 +13,48 @@ After a packet is removed from the queue, it would never be enqueued (3).
 After a packet is sent/dropped, it is permanently sent/ dropped afterward (4-5).
 
 \textbf{Bandwidth constraints.}
-The determination of sending strategy, the decision of $y_{ij}$, is also an interesting and important problem. However, for simpleness, in this paper we just assume that the broadcaster sends as many as possible, which is a good choice. This means, at time $j$ we send out all the possible frames and set the corresponding $y_{ij}$ to true. At any time, the number of sent frames should not exceed the available network bandwidth. According to these constraints, the max frame index $M_{j}$ that can be send, is calculated by maximize the function.
+The determination of sending strategy, the decision of $y_{ij}$, is also an interesting and important problem. Nonetheless, for simpleness, in this paper we just assume that the broadcaster sends as many as possible, which is a good choice. This means, at time $j$ we send out all the possible frames and set the corresponding $y_{ij}$ to true. At any time, the number of frames sent should not exceed the available network bandwidth. In line with these constraints, the max frame index $M_{j}$, is calculated by maximizing the function.
 \begin{align}
 M_j = argmax \Sigma_k (1-y_{k,j-1})(1-z_{k,j-1}) \leq C_{j}
 \end{align}
-Besides the frame that can be send must be not dropped.
+In addition, the frame that can be send must be not dropped.
 
 \textbf{Timeliness constraint.}
 A frame is ``fresh'' if it is sent with in ``$T_1$''. That is, a frame is either sent or drop after time $T_1$ of its generation (7).
 
-\textbf{Decodability constraints.} The final delivered frames must be decodable; otherwise, they would be a waste of network bandwidth. I frames are always decodable. A P frame is decodable if and only if its preceding I or P frame is decodable (8).
+\textbf{Decodability constraints.} The final delivered frames must be decodable. Otherwise, they would be a waste of network bandwidth. I frames are always decodable. A P frame is decodable if and only if its preceding I or P frame is decodable (8).
 
 \textbf{Optimization goal.} The goal of the IP model is to maximize the delivered frames.
 Compared with prior work~\cite{singh2004dynamic}, this IP model has timeliness and decodability in consideration, thus it is more suitable for personalized live streaming.
 
-DP can no doubt achieve the offline optimal. But long-term bandwidth cannot be known ahead of time, so DP cannot be applied in practice. An online drop strategy is necessary.
+DP can achieve the offline optimal. Nevertheless long-term bandwidth is unknowable ahead of time, so DP cannot be applied in practice. Consequently, an online drop strategy is necessary.
 
 \subsubsection{Greedy Algorithm}
 \input{fig/greedy_cbr.tex}
-\textbf{Algorithm Description.} Considering the encode dependency within a GoP, we propose a modified dropping algorithm, GreedyDrop, Algorithm ~\ref{alg:greedy-drop}, towards default OBS. Different from the
-default dropping all the P frames in buffer, greedy algorithm optimizes one more case, where two or more GoPs coexist in buffer. Greedy drops all the P frames until the next keyframe such that the latest GoP can be reserved and avoid frame dropping at least one GoP. The little modification performs much better.
+\textbf{Algorithm Description.} Considering the encode dependency within a GoP, we propose a modified dropping algorithm, GreedyDrop, Algorithm ~\ref{alg:greedy-drop}, towards default OBS. Differing from dropping all the P frames in buffer by default, greedy algorithm optimizes one more case, where two or more GoPs coexist in buffer. GreedyDrop drops all the P frames until the next keyframe so the latest GoP can be reserved and our algorithm avoid frame dropping at least one GoP. A little modification performs much better.
 
 \subsection{Adaptive Bitrate}
 \subsubsection{Problem Formulation}
 \input{fig/vbr_variable.tex}
 \input{fig/vbr.tex}
-In this section, we try to handle the long-term bandwidth fading issue. The distribution of the bandwidth inspires the idea of adaptive bitrate. Different from the former issue, here how to choose the best bitrate is our point. Thus introduce a variable $R_{i}$. $R_{i}$ represents the bitrate of the $i$ frame. For variable bitrate, calculating how much frames can be send is a tricky problem, because different frames have different size.
+In this section, we try to deal with the long-term bandwidth fading issue. The distribution of the bandwidth inspires the idea of adaptive bitrate. Different from the former issue, here how to choose the best bitrate is the point. Hence, we introduce a variable $R_{i}$. $R_{i}$ represents the bitrate of the $i$ frame. For variable bitrate, calculating how many frames can be send is a tricky problem, because different frames have different sizes.
 
-Problem can be formulated as follows \ref{vbr-formulation}, Variables is all defined in Table~\ref{tbl:vbrval}. Variables $\alpha$ and $\beta$ are the utility parameter of bitrate switch and frame dropping. $sgn$ is the sign function, when the variable greater than zero, it equals 1; otherwise equals zero. $mod$ is the operation of taking remainder.
+The utility function can be formulated as follows, \ref{vbr-formulation}, Variables is all defined in Table~\ref{tbl:vbrval}. Variables $\alpha$ and $\beta$ are the utility parameter of bitrate switch and frame dropping. $sgn$ is the sign function. When the variable greater than zero, it equals 1; otherwise it equals zero. $mod$ is the operation of taking remainder.
 
-\textbf{Bitrate Constraint.} Constraint \ref{vbr-bitrate} requires that bitrate within one GoP must keep the same.
+\textbf{Bitrate Constraint.} Constraint \ref{vbr-bitrate} requires that bitrate within one GoP should be identical.
 
-\textbf{Bandwidth Constraint.} Equation \ref{vbr-send} calculates the most number of GoPs can be send within the limited bandwidth.
+\textbf{Bandwidth Constraint.} Equation \ref{vbr-send} calculates the maximum number of sendable GoPs within the limited bandwidth.
 
-\textbf{Timeliness Constraint.} \ref{vbr-drop} judges whether the remaining time after sending exceeds the buffer limit and \ref{vbr-drop-no} give the number of dropped frames in time $j$.
+\textbf{Timeliness Constraint.} Constraint \ref{vbr-drop} judges whether the remaining time after sending exceeds the buffer threshold and constraint \ref{vbr-drop-no} give the number of dropped frames in time $j$.
 
-\textbf{State Transition.} Constraints \ref{vbr-bitrate-next}, \ref{vbr-bitrate-spec}, \ref{vbr-time-next}, \ref{vbr-time-spec}, \ref{vbr-time-spec2} show the state transition of the bitrate and remaining time of several GoPs in buffer. Equations \ref{vbr-gop-no} describes the number of GoPs in the next time slot $j+1$, the last two items $1-mod(j,M)$ represents whether the $j-th$ frame is the keyframe.
+\textbf{State Transition.} Constraints \ref{vbr-bitrate-next}, \ref{vbr-bitrate-spec}, \ref{vbr-time-next}, \ref{vbr-time-spec}, \ref{vbr-time-spec2} reflect the state transition of the bitrate and remaining time of several GoPs in the buffer. Equations \ref{vbr-gop-no} describes the number of GoPs in the next time slot $j+1$, and the last two items $1-mod(j,M)$ represents whether the $j-th$ frame is the keyframe.
 
-Offline optimal is hard to calculate. Assume for each GoP, the broadcaster can choose one from total $M$ bitrate candidates. For a $T$ GoP decision, the computation complexity equals to $M^T$, a exponential complexity.
+Offline optimal solution is hard to calculate. Assume for each GoP, the broadcaster can choose one from total $M$ bitrate candidates. For a $T$ GoP decision, the computation complexity equals $M^T$, a exponential complexity.
 
 \subsubsection{Effective Solution}
 \input{fig/greedy_vbr.tex}
-\textbf{Algorithm Description.} A exponential complexity issue is hard to calculate in limited time. Besides, the offline optimal is on the basis of given prefect knowledge of future bandwidth. Such long-term bandwidth prediction is inaccurate. A intuitive idea is to change the bitrate following the bandwidth. Besides, the remaining data size in buffer may also be helpful. At time $j$, the broadcaster carries out the following two key steps, as shown in Greedy VBR (GVBR) Algorithm ~\ref{alg:greedy-vbr}.
+\textbf{Algorithm Description.} Issue with exponential complexity is hard to calculate in limited time. In addition, the offline optimal is on the basis of off-the-shelf knowledge of future bandwidth. Such long-term bandwidth prediction is inaccurate. A intuitive idea is to change the bitrate following the bandwidth. Morever, the remaining data size in buffer may also be helpful. At time $j$, the broadcaster carries out the following two key steps, as shown in Greedy VBR (GVBR) Algorithm ~\ref{alg:greedy-vbr}.
 
-$1.$ Bandwidth estimate. According to Festive and MPC, harmonic mean is a useful method of estimating the future bandwidth. Besides, proposing a prediction mechanism is nots our focus. With more accurate bandwidth estimate, our method will be better.
+$1.$ Bandwidth estimation. According to Festive and MPC, harmonic mean is a useful method of estimating the future bandwidth. Nevertheless, proposing a prediction mechanism is not our major concern. With more accurate bandwidth estimations, our method performs much more satisfactory.
 
-$2.$ Bitrate choose. Avoid from frequent frame dropping, an appropriate bitrate is essential. Given the future bandwidth $C_j$ and the data size in buffer $Rest$, an heuristic choice is to choose the highest available bitrate lower than $(C_j-Rest)/\alpha$.
+$2.$ Bitrate selection. To avoid frequent frame dropping, an appropriate bitrate is essential. Given the future bandwidth $C_j$ and the data size in buffer $Rest$, an heuristic method is to choose the most available bitrate lower than $(C_j-Rest)/\alpha$.
