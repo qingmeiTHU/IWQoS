@@ -1,12 +1,14 @@
 \begin{algorithm}[h]
-\caption{Greedy Video Adaptation Workflow}
+\caption{GVBR algorithm}
 \label{alg:greedy-vbr}\mylabel{alg:greedy-vbr}
 \begin{algorithmic}[1]
-\State Initialize
+\State Initialize Rest=0, Send=0, Drop=0, $\alpha$
 \For{j=1 to T}
-\State $C_j := ThroughpurPred(C_{[\tau,j-1]})$
-\State $R_j := FindClosestBr(C_j)$
-\State $D_j := f(C_j, R_j)$
+\State according to the history bandwidth $[C_{j-tau},C_{j-1}]$, use harmonic mean to estimate $C_j$
+\State choose the closest bitrate $R_j$ to $(C_j-rest)/\alpha$
+\State send frames $Send$ in buffer within the bandwidth limit
+\State judge whether to drop extra frames $Drop$
+\State calculate the remaining data size in buffer $Rest = Rest + R_j - Send - Drop$
 \EndFor
 \end{algorithmic}
 \end{algorithm} 

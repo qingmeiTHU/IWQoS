@@ -1,5 +1,5 @@
 \begin{algorithm}[tb]
-\caption{Greedy Frame Enqueue Management}
+\caption{GreedyDrop Algorithm}
 \label{alg:greedy-drop}\mylabel{alg:greedy-drop}
 \begin{algorithmic}[1]
 \State \textbf{Input:} {frame, bandwidth}
@@ -7,7 +7,7 @@
 \If{frame is I frame}
 \State dropPFrame := False
 \State \Call{Enqueue}{queue, frame}
-\State timespan:= timespan + 1 
+\State timespan:= timespan + 1
 \EndIf
 \If{frame is P frame}
 \If{dropPFrame or timespan > T1}
@@ -18,6 +18,6 @@
 \State timespan := timespan + 1
 \EndIf
 \EndIf
-\State timespan := timespan - \Call{Send}{bandwidth}
+\State timespan := timespan - \Call{Time-Send}{bandwidth}
 \end{algorithmic}
-\end{algorithm}
+\end{algorithm} 

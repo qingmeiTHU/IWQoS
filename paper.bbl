@@ -1,0 +1,139 @@
+\begin{thebibliography}{10}
+
+\bibitem{HSDPA_dataset}
+http://home.ifi.uio.no/paalh/dataset/hsdpa-tcp-logs/.
+
+\bibitem{dummynet}
+http://info.iet.unipi.it/~luigi/dummynet/.
+
+\bibitem{twitter}
+https://en.wikipedia.org/wiki/meerkat(app).
+
+\bibitem{facebook}
+https://live.fb.com/.
+
+\bibitem{video_dataset}
+https://media.xiph.org/video/derf/.
+
+\bibitem{OBS}
+https://obsproject.com/.
+
+\bibitem{douyu}
+https://www.douyu.com/.
+
+\bibitem{FCC_dataset}
+https://www.fcc.gov/measuring-broadband-america.
+
+\bibitem{panda}
+https://www.panda.tv/.
+
+\bibitem{periscope}
+https://www.pscp.tv/.
+
+\bibitem{twitch}
+https://www.twitch.tv/.
+
+\bibitem{x264}
+http://www.videolan.org/developers/x264.html.
+
+\bibitem{bouzakaria2014overhead}
+N.~Bouzakaria, C.~Concolato, and J.~Le~Feuvre.
+\newblock Overhead and performance of low latency live streaming using
+  mpeg-dash.
+\newblock In {\em Information, Intelligence, Systems and Applications, IISA
+  2014, The 5th International Conference on}, pages 92--97. IEEE, 2014.
+
+\bibitem{de2011feedback}
+L.~De~Cicco, S.~Mascolo, and V.~Palmisano.
+\newblock Feedback control for adaptive live video streaming.
+\newblock In {\em Proceedings of the second annual ACM conference on Multimedia
+  systems}, pages 145--156. ACM, 2011.
+
+\bibitem{huang2003adaptive}
+J.~Huang, C.~Krasic, and J.~Walpole.
+\newblock Adaptive live video streaming by priority drop.
+\newblock In {\em AVSS'03 Proceedings of the IEEE Conference on Advanced Video
+  and Signal Based Surveillance}, 2003.
+
+\bibitem{jiang2014improving}
+J.~Jiang, V.~Sekar, and H.~Zhang.
+\newblock Improving fairness, efficiency, and stability in http-based adaptive
+  video streaming with festive.
+\newblock {\em IEEE/ACM Transactions on Networking (TON)}, 22(1):326--340,
+  2014.
+
+\bibitem{krasic2003quality}
+C.~Krasic, J.~Walpole, and W.-c. Feng.
+\newblock Quality-adaptive media streaming by priority drop.
+\newblock In {\em Proceedings of the 13th international workshop on Network and
+  operating systems support for digital audio and video}, pages 112--121. ACM,
+  2003.
+
+\bibitem{pires2014dash}
+K.~Pires and G.~Simon.
+\newblock Dash in twitch: Adaptive bitrate streaming in live game streaming
+  platforms.
+\newblock In {\em Proceedings of the 2014 Workshop on Design, Quality and
+  Deployment of Adaptive Video Streaming}, pages 13--18. ACM, 2014.
+
+\bibitem{seo2012experimental}
+B.~Seo, W.~Cui, and R.~Zimmermann.
+\newblock An experimental study of video uploading from mobile devices with
+  http streaming.
+\newblock In {\em Proceedings of the 3rd Multimedia Systems Conference}, pages
+  215--225. ACM, 2012.
+
+\bibitem{siekkinen2016first}
+M.~Siekkinen, E.~Masala, and T.~K{\"a}m{\"a}r{\"a}inen.
+\newblock A first look at quality of mobile live streaming experience: the case
+  of periscope.
+\newblock In {\em Proceedings of the 2016 ACM on Internet Measurement
+  Conference}, pages 477--483. ACM, 2016.
+
+\bibitem{singh2004dynamic}
+S.~K. Singh, H.~W. Leong, and S.~N. Chakravarty.
+\newblock A dynamic-priority based approach to streaming video over cellular
+  network.
+\newblock In {\em Computer Communications and Networks, 2004. ICCCN 2004.
+  Proceedings. 13th International Conference on}, pages 281--286. IEEE, 2004.
+
+\bibitem{tang2016meerkat}
+J.~C. Tang, G.~Venolia, and K.~M. Inkpen.
+\newblock Meerkat and periscope: I stream, you stream, apps stream for live
+  streams.
+\newblock In {\em Proceedings of the 2016 CHI Conference on Human Factors in
+  Computing Systems}, pages 4770--4780. ACM, 2016.
+
+\bibitem{wang2016anatomy}
+B.~Wang, X.~Zhang, G.~Wang, H.~Zheng, and B.~Y. Zhao.
+\newblock Anatomy of a personalized livestreaming system.
+\newblock In {\em Proceedings of the 2016 ACM on Internet Measurement
+  Conference}, pages 485--498. ACM, 2016.
+
+\bibitem{wang2004image}
+Z.~Wang, A.~C. Bovik, H.~R. Sheikh, and E.~P. Simoncelli.
+\newblock Image quality assessment: from error visibility to structural
+  similarity.
+\newblock {\em IEEE transactions on image processing}, 13(4):600--612, 2004.
+
+\bibitem{wilk2016leveraging}
+S.~Wilk, R.~Zimmermann, and W.~Effelsberg.
+\newblock Leveraging transitions for the upload of user-generated mobile video.
+\newblock In {\em Proceedings of the 8th International Workshop on Mobile
+  Video}, page~5. ACM, 2016.
+
+\bibitem{yin2015control}
+X.~Yin, A.~Jindal, V.~Sekar, and B.~Sinopoli.
+\newblock A control-theoretic approach for dynamic adaptive video streaming
+  over http.
+\newblock {\em ACM SIGCOMM Computer Communication Review}, 45(4):325--338,
+  2015.
+
+\bibitem{zhang2015crowdsourced}
+C.~Zhang and J.~Liu.
+\newblock On crowdsourced interactive live streaming: a twitch. tv-based
+  measurement study.
+\newblock In {\em Proceedings of the 25th ACM Workshop on Network and Operating
+  Systems Support for Digital Audio and Video}, pages 55--60. ACM, 2015.
+
+\end{thebibliography}

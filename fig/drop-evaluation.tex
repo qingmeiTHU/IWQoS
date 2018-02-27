@@ -1,12 +1,16 @@
-\begin{figure*}[htb]
-\minipage{0.32\textwidth}
-  \includegraphics[width=\linewidth]{fig/drop-buffer.pdf}
-  \caption{Real-time buffer of three algorithms}
-  \label{fig:drop-buffer}\mylabel{fig:drop-buffer}
-\endminipage\hfill
-\minipage{0.32\textwidth}
-  \includegraphics[width=\linewidth]{fig/drop-bandwidth.pdf}
-  \caption{Real-time throughput of four algorithms}
-  \label{fig:drop-bandwidth}\mylabel{fig:drop-bandwidth}
-\endminipage
-\end{figure*}
+\begin{figure}[htb]
+\centering
+\begin{subfigure}[b]{.45\columnwidth}
+\centering
+\includegraphics[width=\linewidth]{fig/drop-buffer.pdf}
+\caption{No. of frame drop}
+\label{fig:drop-buffer}\mylabel{fig:drop-buffer}
+\end{subfigure}
+\begin{subfigure}[b]{.45\columnwidth}
+\centering
+\includegraphics[width=\linewidth]{fig/drop-bandwidth.pdf}
+\caption{Real-time throughput}
+\label{fig:drop-bandwidth}\mylabel{fig:drop-bandwidth}
+\end{subfigure}
+\caption{Comparison of different frame drop strategy}
+\end{figure}

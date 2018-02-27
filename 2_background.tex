@@ -23,13 +23,13 @@ After that, the CDN uses its overlay networks to distribute the
 video to many edge servers.
 Finally, each viewer streams the video from a nearby edge
 server using HTTP-based streaming
-protocols (i.e., DASH~\cite{dash}).
+protocols (i.e., DASH).
 
 \subsection{Personalized live streaming vs. other live streaming}
 First of all, both personalized live streaming and
 traditional live streaming (e.g., ESPN's sports broadcast
 and CNN's scheduled programs) share the need to
-distribute video content to a large audience at  a low cost.
+distribute video content to a large audience at a low cost.
 Therefore, both types of live streaming rely on existing
 CDN infrastructure to distribute video content to viewers through HTTP-based streaming protocols.
 
@@ -53,7 +53,7 @@ CDN infrastructure to distribute video content to viewers through HTTP-based str
 Despite the similarities, personalized
 live streaming has two key differences:
 
-\myparatight{Mobile users as broadcasters}
+\myparatight{Individual mobile users as broadcasters}
 %A video streaming platform provider maintains an overlay network on top of the Internet, which consists of RTMP servers, CDN servers, and edge servers.
 %one key difference is on the implementation of the content source.
 Traditional live streaming (e.g., ESPN) uses a dedicated
@@ -83,8 +83,7 @@ streaming.
 
 \subsection{Broadcaster streaming protocols}
 
-These differences lead to three requirements (formally defined in the next section)
-on how the broadcaster streaming protocol:
+These differences lead to three requirements on the broadcaster streaming protocol:
 
 \begin{packedenumerate}
 
@@ -104,7 +103,7 @@ or at least bounded.
 
 For practical reasons, RTMP has become the de-facto
 broadcaster streaming protocol in most of today's platforms,
-including Facebook Live, Twitch, Periscope, iQIYI,
+including Facebook Live, Twitch, Periscope, Panda Tv,
 Douyu, and so forth.
 RTMP is flexible enough to potentially meet
 the three aforementioned requirements.
@@ -122,7 +121,7 @@ the up-to-date open source RTMP implementation suffer from similar quality
 degradation.
 
 Alternative HTTP-based broadcaster streaming protocols have also
-been studied, including using DASH~\cite{dash}, HTTP POST~\cite{seo2012experimental},
+been studied, including using DASH~\cite{pires2014dash}, HTTP POST~\cite{seo2012experimental},
 and adaptively switching between them~\cite{wilk2016leveraging}.
 While switching from RTMP to HTTP-based protocols might
 achieve better video quality, it requires costly

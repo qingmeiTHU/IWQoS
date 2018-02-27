@@ -10,6 +10,7 @@
 \usepackage[noend]{algpseudocode}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\allowdisplaybreaks[4]
 
 %\usepackage{times}
 %\usepackage{epsfig}
@@ -84,14 +85,15 @@
 
 %%%%%%%%%%%%%  ABSTRACT GOES HERE %%%%%%%%%%%%%%
 \subsection*{Abstract}
+Quality of broadcaster's side is critical in interactive live streaming because a delay or failure caused by the broadcaster could influence all the viewers. Through measurements, we find that state-of-art commercial applications perform not satisfactory when comes the throughput drop, no matter one instant or long time. Neither there are little researches about broadcasters. This paper provides three key guidelines to solve the quality issues in broadcaster-side. First, to eliminate the dependency of frames, we give a range for pick a reasonable keyframe interval; second, more intelligent frame dropping method is given. Last, to follow the variance of throughput, we propose GVBR, an effective bitrate adaptation method that reduce the frame drop by 50\%. Combined algorithm can avoid frame dropping at least 96\%.
 
 \input{1_introduction.tex}
-%\input{intro_junchen.tex}
 \input{2_background.tex}
 \input{3_measurement.tex}
-\input{4_rootcause.tex}
-\input{4_design_space.tex}
-\input{5_design.tex}
+%\input{4_rootcause.tex}
+\input{3_design_space.tex}
+\input{4_design.tex}
+\input{5_evaluation.tex}
 \input{6_related_work.tex}
 \input{7_conclusion.tex}
 
