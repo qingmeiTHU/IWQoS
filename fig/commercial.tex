@@ -1,43 +1,45 @@
 \begin{figure*}[htb]
-\minipage{0.32\textwidth}
+\begin{subfigure}[b]{0.32\textwidth}
   \includegraphics[width=0.8\linewidth]{fig/obs_douyu.pdf}
-  \caption{Throughput, OBS to Douyu server}
+  \caption{OBS to Douyu server}
   \label{fig:obs-douyu}\mylabel{fig:obs-douyu}
-\endminipage\hfill
-\minipage{0.32\textwidth}
+\end{subfigure}
+\begin{subfigure}[b]{0.32\textwidth}
   \includegraphics[width=0.8\linewidth]{fig/douyu.pdf}
-  \caption{Throughput, Douyu broadcaster to Douyu server}
+  \caption{Douyu broadcaster to Douyu server}
   \label{fig:douyu}\mylabel{fig:douyu}
-\endminipage\hfill
-\minipage{0.32\textwidth}%
+\end{subfigure}
+\begin{subfigure}[b]{0.32\textwidth}%
   \includegraphics[width=0.8\linewidth]{fig/obs_twitch.pdf}
-  \caption{Throuhput, OBS to Twitch server}
+  \caption{OBS to Twitch server}
   \label{fig:obs-twitch}\mylabel{fig:obs-twitch}
-\endminipage
+\end{subfigure}
+\caption{Throughput in three experiments}\label{fig:commerical-throughput}
 \end{figure*}
 
 \begin{figure*}[htb]
-\minipage{0.32\textwidth}
+\begin{subfigure}[b]{0.32\textwidth}
   \includegraphics[width=0.8\linewidth]{fig/obs_douyu_drop.pdf}
-  \caption{Dropped frames, OBS to Douyu server}
+  \caption{OBS to Douyu server}
   \label{fig:obs-douyu-drop}\mylabel{fig:obs-douyu-drop}
-\endminipage\hfill
-\minipage{0.32\textwidth}
+\end{subfigure}
+\begin{subfigure}[b]{0.32\textwidth}
   \includegraphics[width=0.8\linewidth]{fig/douyu_drop.pdf}
-  \caption{Dropped frames, Douyu broadcaster to Douyu server}
+  \caption{Douyu broadcaster to Douyu server}
   \label{fig:douyu-drop}\mylabel{fig:douyu-drop}
-\endminipage\hfill
-\minipage{0.32\textwidth}%
+\end{subfigure}
+\begin{subfigure}[b]{0.32\textwidth}%
   \includegraphics[width=0.8\linewidth]{fig/obs_twitch_drop.pdf}
-  \caption{Dropped frames, OBS to Twitch server}
+  \caption{OBS to Twitch server}
   \label{fig:obs-twitch-drop}\mylabel{fig:obs-twitch-drop}
-\endminipage
+\end{subfigure}
+\caption{No. of dropped frames}\label{fig:commerical-drop}
 \end{figure*}
 
 \begin{figure}[htb]
 \centering
 \includegraphics[width=.7\columnwidth]{fig/vary-bandwidth.pdf}
-\caption{Bandwidth Control}
+\caption{Varying bandwidth}
 \label{fig:vary-bandwidth}\mylabel{fig:vary-bandwidth}
 \end{figure}
 
