@@ -85,7 +85,24 @@
 
 %%%%%%%%%%%%%  ABSTRACT GOES HERE %%%%%%%%%%%%%%
 \subsection*{Abstract}
-Quality of broadcaster's side is critical in interactive live streaming because a delay or failure caused by the broadcaster could influence all the viewers. Through measurements, we find that state-of-art commercial applications perform not satisfactory when comes the throughput drop, no matter one instant or long time. Neither there are little researches about broadcasters. This paper provides three key guidelines to solve the quality issues in broadcaster-side. First, to eliminate the dependency of frames, we give a range for pick a reasonable keyframe interval; second, more intelligent frame dropping method is given. Last, to follow the variance of throughput, we propose GVBR, an effective bitrate adaptation method that reduce the frame drop by 50\%. Combined algorithm can avoid frame dropping at least 96\%.
+Ensuring high video quality of experience (QoE) on the broadcaster side is 
+critical for interactive live streaming services, because any delay on the 
+broadcaster side can cause negative impact on {\em all} viewers. Through 
+measurements on multiple popular live video streaming platforms, we find 
+that they all suffer from broadcaster-side video quality degradation caused 
+by unnecessarily persistent video interruptions in the presence of transient 
+bandwidth fluctuations. This paper takes a holistic stance, and presents 
+{\em GVBR}, a suite of solutions that optimizes the broadcaster-side QoE 
+through (1) a key frame placement strategy that dynamically trades 
+cross-frame compression for lowered inter-frame interdependency, (2) a 
+simple-yet-efficient frame dropping strategy to prevent excessive frame 
+drops observed in many popular streaming platforms, and (3) finally, a
+RTMP-based bitrate adaptation strategy customized for video broadcasters 
+who have extremely shallow buffer (below one second).
+We compare GVBR with several popular commercial platforms and open source 
+baselines in a variety of network conditions, and find that GVBR can reduce 
+the frame drops by 50\%, and cut video interruption incidents by 90\%, while 
+achieving comparable bitrate.
 
 \input{1_introduction.tex}
 \input{2_background.tex}
