@@ -16,8 +16,21 @@ In the experiment results, we have two observations. (1) In the Figure~\ref{fig:
 \textbf{Prevalence of bad network conditions.} We study how often the bandwidth failure occurs by measuring the bandwidth distribution of two real-world datasets \textemdash\xspace FCC dataset~\cite{FCC_dataset} and HSDPA dataset~\cite{HSDPA_dataset}. Each trace lasts for 320s, and the combined dataset lasts for $30$ hours. For each trace, we normalize the trace by the average bandwidth and draw the CDF(Figure.~\ref{fig:trace}). Almost $50\%$ of traces are under the average throughput, which means for a $10$ second trace, about $5$ second the bandwidth is lower than the average. About $20\%$ of the traces are at most half of the average. The figure indicates that in real-world networks, bandwidth fluctuation frequently occurs. To further explain how often long-term bandwidth fluctuation happens, we illustrate the network failure time distribution, as shown in figure~\ref{fig:trace-down}. Network failure time is calculated by counting the continuing time lower than the average bandwidth. About $20\%$ of the bandwidth fluctuation lasts for more than $10$ seconds, and some even lasts for hundreds of seconds. Keeping constant bitrate may introduce massive frame drops. FCC dataset and HSDPA performs similar with the combined dataset, as we can see in the previous figures.
 
 \input{fig/commercial.tex}
-\textbf{Experiments on several commercial platforms.} We further repeat the experiment on different commercial platforms and settings to find whether the same issues exist.  Specifically, we test three different configurations, including OBS pushing video to Douyu server, Douyu broadcaster to Douyu server, and OBS to twitch server. In the three experiments, the bitrate is chosen lower than the average bandwidth, $1700$kbps. Tcpdump is used to record the real-time throughput. We aggregate the data size in each tick(0.1s) together and draw a picture.
-Figure~\ref{fig:commerical-drop} shows the throughput of the three experiments respectively, ~\ref{fig:commerical-drop} is the corresponding numbers of dropped frames. The first three lines in Table~\ref{tbl:drop} show the total frame drops during the experiment.
+\textbf{Experiments on several commercial platforms.} 
+Next, we show the quality issue manifests itself in multiple 
+commercial platforms of personalized live streaming. Specifically, we
+repeat the above experiement with three settings: (1) broadcasting 
+video from an OBS player to a Douyu server, (2) from Douyu player to 
+Douyu server, and (3) OBS player to Twitch server. In all settings, 
+the average available bandwdith ($1700$kbps) is above the video 
+bitrate, while intermittently, the throughput drops below the 
+bitrate. We use TCPDump to record the actual throughput. 
+Figure~\ref{fig:commerical-throughoput} and 
+Figure~\ref{fig:commerical-drop} show the timeseries of the 
+bandwidth and actual throughput, and the timeseries of number of 
+dropped frames, respectively. The first three lines in 
+Table~\ref{tbl:drop} summarizes the total frame drops during each 
+experiment.
 
 Comparing the results across different platforms, we observe that the ``cascading effect'' is prevalent, appearing on all platforms (e.g., the 30s in OBS to Douyu, the 32s in Douyu to Douyu, and 43s in OBS to Twitch). In these three time periods, the frame drops keeps a high value. We also find out that the cascading effect is not related to the instantaneously available bandwidth. For example, in Figure~\ref{fig:obs-douyu}, a dramatic bandwidth drop at 30s causes the cascading frame drop; while in Figure~\ref{fig:douyu}, a slight bandwidth drop at 32s causes the frame drop. Another observation is that the length of the cascading drop is different on different platforms: more than $5$s in Douyu and 2-3s in Twitch. Finally, from Figures, we observe that the broadcaster software cannot tolerate short-period throughput drop.
 
