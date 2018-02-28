@@ -1,7 +1,15 @@
 \newcommand{\Mod}[1]{\text{ (mod } #1\text{)}}
-\section{Solution}
-According to the design principles, a better drop strategy and practical video adaptation are discussed in this section.
+\wenfei{edit until here. would come back at 2PM}
+\section{Our Solution}
+In this section, we present GVBR, a suite of techniques built on the 
+aforementioned design principles to optimize personalized live streaming 
+quality. 
+In particular, GVBR optimizes the adaptation at frame-level 
+(Section~\ref{subsec:drop-strategy}), as well as GOP-level 
+(Section~\ref{subsec:adaptive-bitrate}).
+
 \subsection{Drop Strategy}
+\label{subsec:drop-strategy}
 \subsubsection{Problem Formulation}
 \input{fig/variables.tex}
 \input{fig/ip.tex}
@@ -34,9 +42,11 @@ DP can achieve the offline optimal. Nevertheless long-term bandwidth is unknowab
 \textbf{Algorithm Description.} Considering the encode dependency within a GoP, we propose a modified dropping algorithm, GreedyDrop, Algorithm ~\ref{alg:greedy-drop}, towards default OBS. Differing from dropping all the P frames in buffer by default, greedy algorithm optimizes one more case, where two or more GoPs coexist in buffer. GreedyDrop drops all the P frames until the next keyframe so the latest GoP can be reserved and our algorithm avoid frame dropping at least one GoP. A little modification performs much better.
 
 \subsection{Adaptive Bitrate}
+\label{subsec:adaptive-bitrate}
 \subsubsection{Problem Formulation}
 \input{fig/vbr_variable.tex}
 \input{fig/vbr.tex}
+\wenfei{these formulas as that in Figure~\ref{fig:ip-program}.}
 In this section, we try to deal with the long-term bandwidth fading issue. The distribution of the bandwidth inspires the idea of adaptive bitrate. Different from the former issue, here how to choose the best bitrate is the point. Hence, we introduce a variable $R_{i}$. $R_{i}$ represents the bitrate of the $i$ frame. For variable bitrate, calculating how many frames can be send is a tricky problem, because different frames have different sizes.
 
 The utility function can be formulated as follows, \ref{vbr-formulation}, the first item is the bitrate utility, the second represents the bitrate switch penalty, the last item equals the frame drops penalty. Variables is all defined in Table~\ref{tbl:vbrval}. Variables $\alpha$ and $\beta$ are the utility parameter of bitrate switch and frame dropping. $sgn$ is the sign function. When the variable greater than zero, it equals 1; otherwise it equals zero. $mod$ is the operation of taking remainder.

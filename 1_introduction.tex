@@ -4,7 +4,7 @@ Recent years have seen the coming of age of personalized live
 streaming. With more personal devices equipped with high-definition
 cameras, we observe a rapid proliferation of apps that allow users
 to stream videos from their smartphones or tablets to anyone who
-tunes in. Such personalized live streaming has found its world-wide
+tunes in. Such personalized live streaming has found its worldwide
 popularity as a way of engaging with more followers (e.g., Twitter 
 Meerkat~\cite{twitter}, Panda Tv~\cite{panda}),
 sharing richer experience (e.g., Facebook Live~\cite{facebook}, Periscope~\cite{periscope}),
@@ -13,15 +13,13 @@ and broadcasting online gaming and sports events (e.g., Twitch~\cite{twitch}, Do
 
 % what's new
 While recent work on personalized live streaming has insofar 
-focused on its traffic pattern (e.g.,~\cite{zhang2015crowdsourced,tang2016meerkat})
+focused on analyzing its traffic pattern (e.g.,~\cite{zhang2015crowdsourced,tang2016meerkat})
 and video distribution architecture (e.g.,~\cite{siekkinen2016first,wang2016anatomy}),
 there has not been enough effort to characterize the 
-quality issues of broadcaster-uploaded videos in the wild in popular platforms.
-Yet, we argue that {\em understanding and improving the broadcaster-side
-video quality is crucial to the Quality of Experience (QoE) of personalized 
-live streaming} for two reasons:
-\begin{itemize}
-\item Broadcaster-side quality issues
+quality issues of {\em broadcaster-uploaded videos} in the wild in popular platforms.
+Yet, we argue that {\em understanding and improving the broadcaster-side uploading
+video quality is crucial to the Quality of Experience (QoE) in the whole personalized live streaming service.}
+Broadcaster-side quality issues
 have a direct impact on {\em all} viewers.
 Any delay or failure caused by the broadcaster could inflate the
 streaming delay of all viewers. Moreover, the upstream video quality
@@ -29,71 +27,38 @@ sets a ``cap'' on the QoE of all
 viewers (even if they have high-speed downlink connections).
 As a result, for instance, the broadcasters typically only upload 
 videos in the highest constant bitrate.
-\item Unlike traditional live streaming of popular events
+
+Despite its significance, the broadcaster-side video uploading has its own unique characteristics that are not well-studied. Compared with traditional live streaming systems for popular events
 (e.g., ESPN) where broadcasters have well-provisioned
 connections and streaming delay is typically at the timescales 
-of tens of seconds,
-personalized live streaming poses new challenges, since 
-(a) the broadcasters could be mobile users with highly variable
-network performance due to wireless packet losses and
-user mobility, and
-(b) the end-to-end streaming delay must be below several seconds 
+of tens of seconds, in personalized living streaming, (1) the broadcaster has to handle variable network conditions because the wireless signal is more dynamic than wired one (user motion, signal fading and interference, etc.), (2) the end-to-end streaming delay must be below several seconds 
 to create real-time interactivity when
 the broadcaster interacts with viewers who pose questions
 or send ``likes''.
-\end{itemize}
+The new challenge of personalized live streaming can be summarized as {\em provisioning high QoE (video quality and timeliness) in a variable network condition.}
 
-%\begin{itemize}
-%
-%\item First, while live sport broadcasters use a well-provisioned connection to upload video feed, the broadcaster connection in a personalized streaming event is often wireless and has substantial temporal variability due to wireless jitter and user movement.
-%So the first challenge is how broadcasters stream high quality videos through an unstable wireless connection.
-%
-%\item Second, while sports streaming usually has 5-10 seconds of delay, in personalized streaming, real-time interactivity is crucial for the experience of both broadcasters and viewers, because the broadcaster often interact with viewers who pose questions or give ``likes''.
-%So the second challenge is how to maintain a small streaming delay on the broadcaster side.
-%\end{itemize}
-%Therefore, in most commercial platforms, the broadcasters rely on specialized protocol, notably RTMP, rather than HTTP-based protocols widely used on viewer side.
 
 % quality today is not good
-Despite its significance, the QoE of broadcaster-uploaded video today 
-is far from ideal. Through our measurement on popular video streaming 
-platforms, we observe two {\em prevalent} quality issues across many 
-popular platforms in the wild. In particular, we observe an 
-{\em amplifying effect} of transient network condition causing persistent 
-video QoE degradation: e.g., a throughput degradation of less than a 
-second on the broadcaster side can lead to several seconds of video stalls 
-observed by the viewers. Naturally, these broadcasters are unable 
-to effectively respond to long-term throughput drops too.
-Such problem can easily cause significant quality degradation in practice, 
-because the broadcasters (e.g., smartphones, tablets) are often subject to 
-wireless throughput fluctuations, both
-long-lived as well as transient ones, caused by cellular hand-off, 
-WiFi-cellular switches, device moving-around, and so forth.
+Directly applying traditional frameworks in personalized streaming leads to the QoE of broadcaster-uploaded video far from being deal. Through our measurement on popular video streaming platforms, we observe two {\em prevalent} quality issues across many popular platforms in the wild.  (1) In particular, we observe an 
+{\em amplifying effect of transient fluctuating network conditions} causing persistent video QoE degradation: e.g., a throughput degradation of less than a second on the broadcaster side can lead to several seconds of video stalls observed by the viewers. (2)  These broadcasters are unable to effectively respond to long-term throughput drops too. 
+Such problem can easily cause significant quality degradation in practice, because the broadcasters (e.g., smartphones, tablets) are often subject to both transient and long-term wireless throughput fluctuations, which are caused by cellular hand-off, 
+WiFi-cellular switches, device motion, and so forth.
 
 
 % we figured out the root cause
 The root cause of this amplifying effect lies in the fact that RTMP, 
-the de-facto video broadcaster-side streaming protocol, can drop video frames 
-too aggressively when the video buffer overflows, resulting in unnecessary 
-drops of important video frames and consequently persistent video stalls 
-experienced by viewers.
+the de-facto video broadcaster-side streaming protocol, can drop video frames too aggressively when the video buffer overflows, resulting in unnecessary drops of important video frames and consequently persistent video stalls experienced by viewers.
 Moreover, straightforward strawman solutions (e.g., increasing
-buffer length, alternative frame-dropping policies) fail to meet at least one
-of the two critical QoE requirements of personalized streaming:
-they either increase end-to-end delay (i.e., low timeliness), or drop more
-frames than needed (i.e., low video resolution).
+buffer length, alternative frame-dropping policies) fail to meet at least one of the two critical QoE requirements of personalized streaming: they either increase end-to-end delay (i.e., low timeliness), or drop more frames than needed (i.e., lowing video resolution).
 For instance, simply increasing buffer size on the broadcaster
 side hides transient throughput drops but may cause end-to-end
-delay to grow unboundedly.
+delay growing unboundedly.
 
-For the long-term network drops, existing solutions mainly focus on the 
-bitrate adaptation strategy of the viewer-side player, who typically maintains 
-a long buffer of around 10 seconds. Mostly used in video-on-demand (VoD) cases,
-these solutions fail miserably when used by a broadcaster of personalized live
-streaming, since the broadcaster typically has at most one second worth of 
-video in its buffer. 
+For the long-term network packet drops, existing solutions mainly focus on the bitrate adaptation strategy of the viewer-side player, who typically maintains a long buffer of around 10 seconds. Mostly used in video-on-demand (VoD) cases,
+these solutions fail miserably when used by a broadcaster of personalized live streaming, since the broadcaster typically has at most one second worth of video in its buffer. 
 
 % key insight in our solution
-In this paper, we present GVBR, a suite of solution that substantially improve
+In this paper, we present GVBR, a suite of solution that substantially improves
 the broadcaster-side video quality in personalized live streaming.
 Our key insight is that these broadcaster-side quality issues can be mitigated 
 by a systematic co-design of key RTMP configuration (i.e., key frame
