@@ -1,4 +1,5 @@
 \section{Background}
+We analyze the requirements of provisioning timely and high-quality video in variable network conditions compared with the traditional streaming framework, and propose to customize the whole broadcaster-side RTMP protocol stack for the goal. Due to the constraints of existing practical architecture and deployment policy, applying none-RTMP-based solutions is not compatible with the other existing part of the whole system (e.g., the CDN in the middle).
 
 \begin{figure}[t]
 \centerline{\includegraphics[width=0.9\columnwidth]{fig/architecture.pdf}}
@@ -7,13 +8,7 @@
 \vspace{-0.1in}
 \label{fig:architecture}
 \end{figure}
-
-We start with the background of personalized live streaming, including
-its similarities and key differences to traditional live video 
-streaming (e.g., ESPN Live), and what is their implication on the design 
-of the broadcaster-side streaming protocol.
-
-\subsection{Overview of architecture}
+\textbf{Video streaming architecture.}
 Figure~\ref{fig:architecture} shows the (simplified) common architecture 
 of popular personalized live streaming platforms. When live streaming 
 starts, the broadcaster uploads the live video to an edge server using 
@@ -22,38 +17,12 @@ as other content (e.g., web) using traditional overlay distribution
 protocols. Finally, each viewer streams the video from a nearby edge
 server using HTTP-based streaming protocols (i.e., DASH).
 
-\subsection{Personalized live streaming vs. other live streaming}
-First of all, both personalized live streaming and
-traditional live streaming (e.g., ESPN's sports broadcast
-and CNN's scheduled programs) share the need to
-distribute video content to a large audience at a low cost.
-Therefore, both types of live streaming rely on existing
-CDN infrastructure to distribute video content to viewers through 
-HTTP-based streaming protocols.
+\textbf{Personalized live streaming.}
+Personalized live streaming uprises recently, it evolves from traditional live streaming (e.g., ESPN's sports broadcast
+and CNN's scheduled programs). Both kinds of streaming share the goal to distribute video content to a large audience at a low cost and  rely on existing CDN infrastructure to distribute video content to viewers through HTTP-based streaming protocols. However, personalized live streaming distinguishes itself from 
+other live streaming settings in two key aspects, which is oftern overlooked right now.
 
-%videos from a nearby edge server (shown in Figure~\ref{fig:architecture}).
-%%\footnote{We use live video streaming and live streaming interchangeably}.
-%%Like other types of video streaming, personalized live streaming
-%%relies on CDN overlay networks to distribute video content from
-%%the source to many edge servers, and each viewer can stream
-%%videos from a nearby edge server.
-%Note that the edge servers are often web servers and stream
-%videos to viewers using HTTP-based streaming
-%protocols (i.e., DASH~\cite{dash}).
-%%It is worth noting that in order to serve a large audience with
-%%reasonable cost, personalized live streaming,
-%%like video on-demand systems, uses web servers
-%%as edge servers and therefore uses HTTP-based streaming
-%%protocols (i.e., DASH~\cite{dash})
-%%between a viewer and an edge server.
-
-%\subsection{What's new in personalized live streaming}
-However, personalized live streaming distinguishes itself from 
-other live streaming settings in two key aspects:
-
-\myparatight{Individual mobile users as broadcasters}
-%A video streaming platform provider maintains an overlay network on top of the Internet, which consists of RTMP servers, CDN servers, and edge servers.
-%one key difference is on the implementation of the content source.
+{\em 1. Individual mobile users as broadcasters}
 Traditional live streaming (e.g., ESPN) uses a dedicated
 over-provisioned connection (usually direct cable or an exclusive
 satellite channel) to stream high-resolution raw video
@@ -61,9 +30,9 @@ content from a camera to a special content management
 server, which then transcodes the original video into video chunks.
 In contrast, the content source in personalized video
 streaming is often mobile users who upload the live video
-through a wireless connection shared with many other users.
+through a wireless connection shared with many other users. Due to the broadcaster motion and complicated wireless signal strength in the environment, personalized live streaming broadcasters may meet with more variable network conditions.
 
-\myparatight{Broadcaster-viewer interactivity}
+{\em 2. Broadcaster-viewer interactivity.}
 Moreover, ensuring low end-to-end streaming delay is critical
 in personalized live streaming for broadcasters
 to interact with viewers, while viewers in traditional sports live
@@ -75,27 +44,14 @@ several seconds, which is much less than traditional live
 streaming which typically tolerates around 10 seconds of end-to-end 
 delay (e.g., sports events).
 
-\subsection{Broadcaster streaming protocols}
-
-These differences lead to three requirements on the broadcaster streaming protocol:
-
-\begin{packedenumerate}
-
-\item {\em High bitrate:} The broadcaster must encode
-the video in high bitrate and send the high-bitrate video
-to the edge server, so that downstream viewers can watch
-the video in the best possible resolution.
-
-\item {\em Agility:} The streaming protocol must be sufficiently adaptive
-to quickly react the performance fluctuations in wireless networks.
-
-\item {\em Timeliness:} The streaming protocol must ensure the streaming
-delay between the broadcaster and viewers is minimized
+%\subsection{Broadcaster streaming protocols}
+\textbf{Design requirements.} These differences lead to three requirements on the broadcaster streaming protocol design.\\
+{\em 1. High video quality.} Video quality includes metrics about a video itself, including bitrate, frame-per-second, resolutions, etc. The broadcaster must provide videos with the highest possible quality to the CDN so that the downstream viewers can get satisfactory QoE.\\
+{\em 2. Agile adaptation.} The streaming protocol must be sufficiently adaptive to quickly react the bandwidth fluctuations in wireless networks.\\
+{\em 3. Timeliness.} The streaming protocol must ensure the streaming delay between the broadcaster and viewers is minimized
 or at least bounded.
 
-\end{packedenumerate}
-
-\myparatight{Common protocols today}
+\textbf{Constraints for practical deployment.}
 For practical reasons, RTMP has become the de-facto
 broadcaster streaming protocol in most of today's platforms,
 including Facebook Live, Twitch, Periscope, Panda Tv,
@@ -112,8 +68,8 @@ in the presence of throughput fluctuation
 (e.g.,~\cite{huang2003adaptive,krasic2003quality,singh2004dynamic}).
 Nonetheless, as we will show in the next section,
 both commercial implementations of RTMP and
-the up-to-date open source RTMP implementation suffer from similar quality
-degradation.
+the up-to-date open source RTMP implementation suffer from similar quality degradation.
+
 Alternative HTTP-based broadcaster streaming protocols have also
 been studied, including using DASH~\cite{pires2014dash}, HTTP POST~\cite{seo2012experimental},
 and adaptively switching between them~\cite{wilk2016leveraging}.
