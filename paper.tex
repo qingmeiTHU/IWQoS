@@ -10,6 +10,7 @@
 \usepackage[noend]{algpseudocode}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{multirow}
 \allowdisplaybreaks[4]
 
 %\usepackage{times}
@@ -41,12 +42,14 @@
 \ifdefined\draft
 \newcommand{\wenfei}[1]{\textcolor{blue}{[Wenfei:#1]}}
 \newcommand{\jc}[1]{\textcolor{green}{[Junchen: #1]}}
+\newcommand{\qm}[1]{\textcolor{red}{[Qingmei:#1]}}
 \newcommand{\note}[1]{\textcolor{red}{Note: #1}}
 %\newcommand{\mylabel}[1]{\textcolor{blue}{LABEL: #1}}
 \newcommand{\mylabel}[1]{}
 \else
 \newcommand{\wenfei}[1]{}
 \newcommand{\jc}[1]{}
+\newcommand{\qm}[l]{}
 \newcommand{\note}[1]{}
 \newcommand{\mylabel}[1]{}
 \fi
@@ -87,23 +90,23 @@
 \wenfei{add pager number to this paper.}
 %%%%%%%%%%%%%  ABSTRACT GOES HERE %%%%%%%%%%%%%%
 \subsection*{Abstract}
-Ensuring high video quality of experience (QoE) on the broadcaster side is 
-critical for interactive live streaming services, because any delay on the 
-broadcaster side can cause negative impact on {\em all} viewers. Through 
-measurements on multiple popular live video streaming platforms, we find 
-that they all suffer from broadcaster-side video quality degradation caused 
-by unnecessarily persistent video interruptions in the presence of transient 
-bandwidth fluctuations. This paper takes a holistic stance, and presents 
-{\em GVBR}, a suite of solutions that optimizes the broadcaster-side QoE 
-through (1) a key frame placement strategy that dynamically trades 
-cross-frame compression for lowered inter-frame interdependency, (2) a 
-simple-yet-efficient frame dropping strategy to prevent excessive frame 
+Ensuring high video quality of experience (QoE) on the broadcaster side is
+critical for interactive live streaming services, because any delay on the
+broadcaster side can cause negative impact on {\em all} viewers. Through
+measurements on multiple popular live video streaming platforms, we find
+that they all suffer from broadcaster-side video quality degradation caused
+by unnecessarily persistent video interruptions in the presence of transient
+bandwidth fluctuations. This paper takes a holistic stance, and presents
+{\em GVBR}, a suite of solutions that optimizes the broadcaster-side QoE
+through (1) a key frame placement strategy that dynamically trades
+cross-frame compression for lowered inter-frame interdependency, (2) a
+simple-yet-efficient frame dropping strategy to prevent excessive frame
 drops observed in many popular streaming platforms, and (3) finally, a
-RTMP-based bitrate adaptation strategy customized for video broadcasters 
+RTMP-based bitrate adaptation strategy customized for video broadcasters
 who have extremely shallow buffer (below one second).
-We compare GVBR with several popular commercial platforms and open source 
-baselines in a variety of network conditions, and find that GVBR can reduce 
-the frame drops by 50\%, and cut video interruption incidents by 90\%, while 
+We compare GVBR with several popular commercial platforms and open source
+baselines in a variety of network conditions, and find that GVBR can reduce
+the frame drops by 50\%, and cut video interruption incidents by 90\%, while
 achieving comparable bitrate.
 
 \input{1_introduction.tex}

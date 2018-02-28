@@ -2,10 +2,10 @@
 \caption{GVBR algorithm}
 \label{alg:greedy-vbr}\mylabel{alg:greedy-vbr}
 \begin{algorithmic}[1]
-\State Initialize Rest=0, Send=0, Drop=0, $\alpha$
+\State Initialize Rest=0, Send=0, Drop=0, $\eta$
 \For{j=1 to T}
 \State according to the history bandwidth $[C_{j-tau},C_{j-1}]$, use harmonic mean to estimate $C_j$
-\State choose the closest bitrate $R_j$ to $(C_j-rest)/\alpha$
+\State choose the closest bitrate $R_j$ to $(C_j-rest)/\eta$
 \State send frames $Send$ in buffer within the bandwidth limit
 \State judge whether to drop extra frames $Drop$
 \State calculate the remaining data size in buffer $Rest = Rest + R_j - Send - Drop$
