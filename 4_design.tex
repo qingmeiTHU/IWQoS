@@ -1,4 +1,5 @@
 \newcommand{\Mod}[1]{\text{ (mod } #1\text{)}}
+\wenfei{edit until here. would come back at 2PM}
 \section{Our Solution}
 In this section, we present GVBR, a suite of techniques built on the 
 aforementioned design principles to optimize personalized live streaming 
@@ -45,6 +46,7 @@ DP can achieve the offline optimal. Nevertheless long-term bandwidth is unknowab
 \subsubsection{Problem Formulation}
 \input{fig/vbr_variable.tex}
 \input{fig/vbr.tex}
+\wenfei{these formulas as that in Figure~\ref{fig:ip-program}.}
 In this section, we try to deal with the long-term bandwidth fading issue. The distribution of the bandwidth inspires the idea of adaptive bitrate. Different from the former issue, here how to choose the best bitrate is the point. Hence, we introduce a variable $R_{i}$. $R_{i}$ represents the bitrate of the $i$ frame. For variable bitrate, calculating how many frames can be send is a tricky problem, because different frames have different sizes.
 
 The utility function can be formulated as follows, \ref{vbr-formulation}, Variables is all defined in Table~\ref{tbl:vbrval}. Variables $\alpha$ and $\beta$ are the utility parameter of bitrate switch and frame dropping. $sgn$ is the sign function. When the variable greater than zero, it equals 1; otherwise it equals zero. $mod$ is the operation of taking remainder.
