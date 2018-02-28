@@ -1,46 +1,46 @@
 \wenfei{edit until here}
 \section{Evaluation}
 
-\subsection{Best GoP}
+\subsection{Best GOP}
 The previous section indicates that reducing the keyframe interval may cut down the frame dropping. Therefore in this section, we evaluate the method: reducing keyframe interval.
 \textbf{Implementation and experiment setup.}
 We control the outbound throughput of broadcaster to a constant level, and introduce a 2-second interruption. We record the number of frame drops as metrics to evaluate these methods. The frame rate in this paper usually sets as 30.
 
 \input{fig/eval_drop.tex}
-\textbf{Varying key frame interval.} The default I frame interval of OBS is 8 seconds, and we adjust it to 4s and 2s in experiments. The frame drops are shown in Figure~\ref{fig:iframe-drop}. We can observe that in each individual experiment, when the interruption starts earlier in a GOP, more frames are dropped. Because an early frame has more following frames depending on it. For default setting, 8 second keyframe interval, when interruption starts at 17s, 19s, 21s, and 23s, the number of frame drops is 238, 164, 105, and 48.
+\textbf{Varying keyframe interval.} The default I frame interval of OBS is 8 seconds, and we adjust it to 4s and 1s in experiments. The frame drops are shown in Figure~\ref{fig:iframe-drop}. We can observe that in each individual experiment, when the interruption starts earlier in a GOP, more frames are dropped. Because an early frame has more following frames depending on it. For default setting, 8 second keyframe interval, when interruption starts at 17s, 19s, 21s, and 23s, the number of frame drops is 238, 164, 105, and 48.
+\iffalse
 Also, the number of frame drop appears to have the same period with the keyframe interval (e.g., when keyframe interval is 4s, the number of frame drops is 102, 47, 103, and 48 when interruption starts at 17s, 19s, 21s, and 23s, demonstrating a period of 4s.).
+\fi
+Comparing bars within the group of 17s, we find that smaller keyframe interval significantly reduces the number of frame drop (i.e., from 238, to 102, and 46 when the interval is from 8s to 4s and 1s). However, this reduction is not significant for the group of 23s, because 23s is near the end of a GOP in all cases (8s, 4s, and 1s interval), and there are less frames depending on the frame at 23s.
 
-Comparing bars within the group of 17s, we find that smaller keyframe interval significantly reduces the number of frame drop (i.e., from 238, to 102, and 46 when the interval is from 8s to 4s and 2s). However, this reduction is not significant for the group of 23s, because 23s is near the end of a GOP in all cases (8s, 4s, and 2s interval), and there are only 1-second frames depending on the frame at 23s.
+This experiment shows that if we can eliminate the dependency between frames, an occasional network jitter would only affect frames within a limited duration near the jitter, instead of cascadingly affecting frames in following several seconds. 
 
-This experiment shows that if we can eliminate the dependency between frames, an occasional network jitter would only affect frames within a limited duration near the jitter, instead of cascadingly affecting frames in following several seconds. Reducing keyframe interval is an intractable issue because that adjusting would cause video quality degradation. A tradeoff between video quality degradation and frame dropping needs to be discreetly solved.
+Reducing keyframe interval is an intractable issue because that adjusting would cause video quality degradation.
 
-\textbf{Video quality and GoP} As mentioned above, the size of GoP needs a tradeoff between video quality and frame dropping. To guide the choice of keyframe interval, we try to vary the GoP and encode many uncompressed streaming using the x264 encoder \cite{x264}. A truth is that the x264 encoder use the delta intermode coding. Thus a larger GoP is much more likely to introduce the accumulative errors, and GoP is recommanded smaller than 250 frames. Nevertheless how to determine the specific value is still sophisticated. We record SSIM (structural similarity) as metrics, which is a method for predicting quality of video, and is used for measuring the similarity of two images \cite{wang2004image}. The video dataset we use contains SD content, HD content, gaming, and 4k content in variety \cite{video_dataset}. The relationship between normalized SSIM and gop size is displayed in Fig~\ref{fig:ssim_gop}.
-
-We pick four from many videos to represent the result. From the figure, we can see when the GoP size is larger than 0.5s, the SSIM keeps almost the same, with few changes.
-
-Additionally combining the previous two experiments, a GoP size larger than 0.5s can achieve better video quality; and a smaller gop size will reduce the frame dropping. We can see that GOP size between $[0.5,2]$s is probably the best choice for keyframe interval.
+\textbf{Video quality and GOP} As mentioned above, the size of GOP needs a tradeoff between video quality and frame dropping. To guide the choice of keyframe interval, we try to vary the GOP and encode many uncompressed streaming using the x264 encoder \cite{x264}. A truth is that the x264 encoder use the delta intermode coding. Thus a larger GOP is much more likely to introduce the accumulative errors, and GOP is recommended smaller than 250 frames. Nevertheless how to determine the specific value is still sophisticated. The video dataset we use contains SD content, HD content, gaming, and 4k content in variety \cite{video_dataset}. The relationship between normalized SSIM and GOP size is displayed in Fig~\ref{fig:ssim_gop}.
+We pick four from many videos to represent the result. From the figure, we can see when the GOP size is larger than 0.5s, the SSIM keeps almost the same, with few changes. Additionally combining the previous two experiments, a GOP size larger than 0.5s can achieve better video quality; and a smaller GOP size will reduce the frame dropping. We can see that GOP size between $[0.5,2]$s is probably the best choice for keyframe interval.
 
 \iffalse
 \input{fig/drop_varying_bitrate.tex}
 \textbf{Varying bitrate.}
-To make the conclusion more visible, we fix key frame interval to be 8s and introduce network interruption between 19s and 21s. In different experiments, we provide sufficient network bandwidth and vary the bitrate to be 1000kbps, 1500kbps, 2000kbps, and 2500kbps. The frame drop is shown in Table~\ref{tab:bitrate}. The different bitrates do not make much difference, the number of drop in all cases is about 149.
+To make the conclusion more visible, we fix keyframe interval to be 8s and introduce network interruption between 19s and 21s. In different experiments, we provide sufficient network bandwidth and vary the bitrate to be 1000kbps, 1500kbps, 2000kbps, and 2500kbps. The frame drop is shown in Table~\ref{tab:bitrate}. The different bitrates do not make much difference, the number of drop in all cases is about 149.
 
-\textbf{Summary.} We summarize and get conclusions. First, reducing keyframe interval leads to less frame drop. Second, bitrate does not influence frame drop for the short-term case, but the quality of each picture. Preliminary Evaluation points out that a small GoP is one useful try.
+\textbf{Summary.} We summarize and get conclusions. First, reducing keyframe interval leads to less frame drop. Second, bitrate does not influence frame drop for the short-term case, but the quality of each picture. Preliminary Evaluation points out that a small GOP is one useful try.
 \fi
 
 \subsection{Greedy Drop Strategy}
-To measure the performance, we compare the performance with two algorithms, there are namely Oracle, OBS algorithm~\ref{alg:obs-drop}. Oracle, the offline optimal solution by the brute-force search, which has an exponential time complexity. We pick out one part from the dataset, and the trace lasts for $30$ seconds. During the period both bandwidth fading and bandwidth fluctuating appears. The frame rate is $30$ fps, and the total number of frame equals $900$.
+To measure the performance, we compare the performance with two algorithms, there are namely Oracle, GreedyDrop(Algorithm~\ref{alg:greedy-drop}). Oracle, the offline optimal solution by the brute-force search, which has an exponential time complexity. We pick out one part from the dataset, and the trace lasts for $30$ seconds. During the period both bandwidth fading and bandwidth fluctuating appears. The frame rate is $30$ fps, and the total number of frame equals $900$.
 
 \input{fig/no_drop_frame.tex}
 \input{fig/drop-evaluation.tex}
-The number of dropped frames is displayed in the table~\ref{tab_drop}. OBS dropped the most frames among three, and GreedyDrop reduce $15\%$, which is a prominent improvement. Morever the gap between GreedyDrop and Oracle is small, less than $5\%$. The frame drop and throughput is shown in Figures~\ref{fig:drop-buffer}~\ref{fig:drop-bandwidth}. The main period of frame dropping locates in 5-10s and 20-30s. All three algorithms perform similarly in 5-10s, but the Oracle will save more frames before the network recovers, and keep a high bandwidth at 10-15s. The frame drop of OBS waves at a high variance in 20-30s, but GreedyDrop almost keeps unchanged. Because GreedyDrop only drops the undecodable frames of the first GoP. For each GoP, the beginning is sent to receiver, and the rest ones is dropped, so for each time, the frame drops and the throughput keep still. Oracle also fluctuates, but with a small variance. Considering both time complexity and performance, GreedyDrop is a good choice.
+The reduction of frame drops is displayed in the table~\ref{tab_drop}. OBS dropped the most frames among three, and GreedyDrop reduce $15\%$, which is a prominent improvement. Morever the gap between GreedyDrop and Oracle is small, less than $5\%$. The frame drop and throughput is shown in Figures~\ref{fig:drop-buffer}~\ref{fig:drop-bandwidth}. The main period of frame dropping locates in 5-10s and 20-30s. All three algorithms perform similarly in 5-10s, but the Oracle will save more frames before the network recovers, and keep a high bandwidth at 10-15s. The frame drop of OBS waves at a high variance in 20-30s, but GreedyDrop almost keeps unchanged. Because GreedyDrop only drops the undecodable frames of the first GOP. For each GOP, the beginning is sent to receiver, and the rest ones is dropped, so for each time, the frame drops and the throughput keep still. Oracle also fluctuates, but with a small variance. Considering both time complexity and performance, GreedyDrop is a good choice.
 
 
 \subsection{Greedy Adaptive Bitrate}
 \input{fig/vbr-evaluation.tex}
 We compared GVBR algorihtm towards three algorithms which work excellently in VOD bitrate adaptation:
 \begin{itemize}
-  \item OBS: A simple but popular video adaptation method. Each time it chooses the bitrate exactly lower than the estimated bandwidth. In addition, use the default drop strategy in OBS. Harmonic mean is used for bandwidth estimation.
+  \item OBS-VBR: A simple but popular video adaptation method. Each time it chooses the bitrate exactly lower than the estimated bandwidth. In addition, use the default drop strategy in OBS. Harmonic mean is used for bandwidth estimation.
   \item MPC: use buffer state(number and size of frames, and type of frames, I/P/B) and bandwidth predictions to calculate the optimal bitrate operation in future several time slots. Use the first bitrate choice in next time slot.
   \item Robust-MPC: use the approach resembling MPC, but correct the estimated bandwidth by considering the prediction error in past several time slots. New estimated bandwidth equals the original estimated bandwidth divide the prediction error.
 \end{itemize}
