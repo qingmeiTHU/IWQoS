@@ -1,7 +1,7 @@
 \newcommand{\Mod}[1]{\text{ (mod } #1\text{)}}
-\vspace{-0.18in}  
+\vspace{-0.18in}
 \section{\name Solution}
-\vspace{-0.05in}  
+\vspace{-0.05in}
 Based on the intuitions above, we review the design of RTMP and customize the protocol in three levels. First, we tune the GOP size to reduce the dependency between frame so that ``cascading effect'' is mitigated; second, we improve the frame drop strategy within GOP to avoid the drop as much as possible. These two methods are targeted at short throughput drop. Third, we devise a bitrate adaptation algorithm across GOP for long-term wireless bandwidth degradation.
 
 %In particular, GVBR optimizes the adaptation at frame-level (Section~\ref{subsec:drop-strategy}), as well as GOP-level
@@ -13,7 +13,10 @@ The influence of GOP size on frame drops is measured by controlled experiments. 
 As for the video resolution, SSIM(structural similarity) is used as the metric. It is a method for predicting quality of video, and is used for measuring
 the similarity of two images~\cite{wang2004image}. Then we vary GOP size, and figure out the minimum GOP size that can keep SSIM to be within [95\%-100\%] of the SSIM of the original video. This computation can be done offline in a cloud, CDN server, or in the streaming device.
 
-\vspace{-0.05in}  
+As for the video resolution, SSIM(structural similarity) is used as the metric. It is a method for predicting quality of video, and is used for measuring
+the similarity of two images~\cite{wang2004image}. Then we vary GOP size, and figure out the minimum GOP size that can keep SSIM to be within [95\%-100\%] of the SSIM of the original video. This computation can be done offline in a cloud, CDN server, or in the streaming device.
+
+\vspace{-0.05in}
 \subsection{Smart Drop Strategy}
 \label{subsec:drop-strategy}
 In the runtime with GOP size configure, a frame drop logic is needed for transient network degradation. We first theoretically figure out the best possible drop decision (i.e., best video quality) that can be made assuming the network degradation is known beforehand. Then we design an online algorithm that has low complexity and is suitable for mobile devices.

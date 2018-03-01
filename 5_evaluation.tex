@@ -1,6 +1,6 @@
 % \wenfei{edit until here}
 \section{Evaluation}
-\vspace{-0.05in}  
+\vspace{-0.05in}
 \subsection{Best GOP}
 The previous section indicates that reducing the keyframe interval may cut down the frame dropping. Therefore in this section, we evaluate the method: reducing keyframe interval.
 \textbf{Implementation and experiment setup.}
@@ -13,7 +13,7 @@ Also, the number of frame drop appears to have the same period with the keyframe
 \fi
 Comparing bars within the group of 17s, we find that smaller keyframe interval significantly reduces the number of frame drop (i.e., from 238, to 102, and 46 when the interval is from 8s to 4s and 1s). However, this reduction is not significant for the group of 23s, because 23s is near the end of a GOP in all cases (8s, 4s, and 1s interval), and there are less frames depending on the frame at 23s.
 
-This experiment shows that if we can eliminate the dependency between frames, an occasional network jitter would only affect frames within a limited duration near the jitter, instead of cascadingly affecting frames in following several seconds. 
+This experiment shows that if we can eliminate the dependency between frames, an occasional network jitter would only affect frames within a limited duration near the jitter, instead of cascadingly affecting frames in following several seconds.
 
 Reducing keyframe interval is an intractable issue because that adjusting would cause video quality degradation.
 
@@ -28,7 +28,7 @@ To make the conclusion more visible, we fix keyframe interval to be 8s and intro
 \textbf{Summary.} We summarize and get conclusions. First, reducing keyframe interval leads to less frame drop. Second, bitrate does not influence frame drop for the short-term case, but the quality of each picture. Preliminary Evaluation points out that a small GOP is one useful try.
 \fi
 
-\vspace{-0.05in}  
+\vspace{-0.05in}
 \subsection{Greedy Drop Strategy}
 To measure the performance, we compare the performance with two algorithms, there are namely Oracle, GreedyDrop(Algorithm~\ref{alg:greedy-drop}). Oracle, the offline optimal solution by the brute-force search, which has an exponential time complexity. We pick out one part from the dataset, and the trace lasts for $30$ seconds. During the period both bandwidth fading and bandwidth fluctuating appears. The frame rate is $30$ fps, and the total number of frame equals $900$.
 
