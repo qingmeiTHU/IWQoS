@@ -13,16 +13,6 @@
 \usepackage{multirow}
 \allowdisplaybreaks[4]
 
-%\usepackage{times}
-%\usepackage{epsfig}
-%\usepackage{thumbpdf}
-%\usepackage{listings}
-%\usepackage{verbatim}
-%\usepackage{booktabs}
-%\usepackage{colortbl}
-
-
-
 
 \hypersetup{pdfstartview=FitH,pdfpagelayout=SinglePage}
 
@@ -33,17 +23,16 @@
 \setlength{\oddsidemargin}{-.25in}
 \setlength{\evensidemargin}{-.25in}
 %\setlength{\headsep}{0in}
-\pagenumbering{arabic}
 
 \newcommand{\name}{GVBR\xspace}
 
 \def\draft{1}
+\def\etal{\textit{et al.}\xspace}
 
 \ifdefined\draft
 \newcommand{\wenfei}[1]{\textcolor{blue}{[Wenfei:#1]}}
 \newcommand{\jc}[1]{\textcolor{green}{[Junchen: #1]}}
 \newcommand{\qm}[1]{\textcolor{red}{[Qingmei:#1]}}
-\newcommand{\note}[1]{\textcolor{red}{Note: #1}}
 %\newcommand{\mylabel}[1]{\textcolor{blue}{LABEL: #1}}
 \newcommand{\mylabel}[1]{}
 \else
@@ -83,11 +72,6 @@
 \author{Anonymous}
 
 \maketitle
-
-%\thispagestyle{empty}
-
-
-\wenfei{add pager number to this paper.}
 %%%%%%%%%%%%%  ABSTRACT GOES HERE %%%%%%%%%%%%%%
 \subsection*{Abstract}
 Ensuring high video quality of experience (QoE) on the broadcaster side is
@@ -98,7 +82,7 @@ that they all suffer from broadcaster-side video quality degradation caused
 by unnecessarily persistent video interruptions in the presence of transient
 bandwidth fluctuations. This paper takes a holistic stance, and presents
 {\em GVBR}, a suite of solutions that optimizes the broadcaster-side QoE
-through (1) a key frame placement strategy that dynamically trades
+through (1) a keyframe placement strategy that dynamically trades
 cross-frame compression for lowered inter-frame interdependency, (2) a
 simple-yet-efficient frame dropping strategy to prevent excessive frame
 drops observed in many popular streaming platforms, and (3) finally, a

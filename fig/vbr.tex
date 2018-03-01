@@ -1,19 +1,23 @@
-\begin{eqnarray}
-&Max& \sum R_j- \alpha\sum|R_{j+1}-R_j|-\beta\sum D_j
-\label{vbr-formulation} \mylabel{vbr-formulation}
-\end{eqnarray}
-\\ subject to
-\begin{eqnarray}
+\begin{figure}[tb]
+\centering
+{\setlength{\tabcolsep}{3pt}
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{2}{|c|} {maximize $\sum R_j- \alpha\sum|R_{j+1}-R_j|-\beta\sum D_j$, subject to} \\ \hline \hline
 % \nonumber % Remove numbering (before each equation)
-&& R_{j+1}=R_j, \forall mod(j,M)\not\equiv M-1 \label{vbr-bitrate}\\
-&& S_j = argmax{\sum_k R_k^j*T_k^j \leq C_j}, \forall j \label{vbr-send} \\
-&& Rest_j = (C_j- \sum_{S_j} R_k^j*T_k^j)/R_{S_j+1}^j, \forall j \\
-&& F_j = sgn(\sum_{S_j+1} T_k^j - Rest_j-T_1), \forall j \label{vbr-drop}\\
-&& D_j = F_j*(T_{S_j+1}^j-Rest_j), \forall j \label{vbr-drop-no} \\
-&& N_{j+1}=N_j-S_j-F_j+1-sgn(mod(j,M)), \forall j \label{vbr-gop-no}\\
-&& R_k^{j+1}=R_{k+S_j+F_j}^j, \forall j, k\in \{1,N_j-S_j-F_j\} \label{vbr-bitrate-next}\\
-&& R_{N_j-S_j-F_j+1}^{j+1} = R_{j+1}, \forall mod(j,M) \equiv 0 \label{vbr-bitrate-spec} \\
-&& T_k^{j+1} = T_{k+S_j+F_j}^j, \forall j, k\in\{1, N_j-S_j-F_j\} \label{vbr-time-next} \\
-&& T_{N_j-S_j-F_j}^{j+1} = T_{N_j-S_j-F_j}^{j+1} - D_j - Rest_j , \forall j \label{vbr-time-spec} \\
-&& T_{N_j-S_j-F_j+1}^{j+1}=1, \forall mod(j,M)\equiv 0 \label{vbr-time-spec2} \\
-\end{eqnarray}
+$R_{j+1}=R_j, \forall mod(j,M)\not\equiv M-1$ & (1) \\ \hline
+$S_j = argmax{\sum_k R_k^j*T_k^j \leq C_j}, \forall j$ & (2) \\
+$Rest_j = (C_j- \sum_{S_j} R_k^j*T_k^j)/R_{S_j+1}^j, \forall j$ & (3) \\ \hline
+$F_j = sgn(\sum_{S_j+1} T_k^j - Rest_j-T_1), \forall j$ & (4)\\ 
+$D_j = F_j*(T_{S_j+1}^j-Rest_j), \forall j$ & (5) \\ \hline
+$N_{j+1}=N_j-S_j-F_j+1-sgn(mod(j,M)), \forall j$ & (6)\\
+$R_k^{j+1}=R_{k+S_j+F_j}^j, \forall j, k\in \{1,N_j-S_j-F_j\}$ & (7) \\
+$R_{N_j-S_j-F_j+1}^{j+1} = R_{j+1}, \forall mod(j,M) \equiv 0$ & (8) \\
+$T_k^{j+1} = T_{k+S_j+F_j}^j, \forall j, k\in\{1, N_j-S_j-F_j\}$ & (9)\\
+$T_{N_j-S_j-F_j}^{j+1} = T_{N_j-S_j-F_j}^{j+1} - D_j - Rest_j , \forall j$ &(10)\\
+$T_{N_j-S_j-F_j+1}^{j+1}=1, \forall mod(j,M)\equiv 0$ & (11) \\ \hline
+\end{tabular}}
+\caption{Video Adaptation Formulation}
+\vspace{-0.3in}
+\label{vbr-formulation} \mylabel{vbr-formulation}
+\end{figure}
