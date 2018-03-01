@@ -33,11 +33,11 @@ After a packet is removed from the queue, it would never be enqueued (3).
 After a packet is sent/dropped, it is permanently sent/ dropped afterward (4-5).
 
 \textbf{Bandwidth constraints.}
-The sending strategy $y_{ij}$, is also an interesting and important problem in improving frame drops. However, in this paper we assume that the broadcaster sends as many as possible when meeting the network capacity constraints. In line with the constraints, the max frame index $M_{j}$, is calculated by maximizing the function.
+The sending strategy $y_{ij}$, is also an interesting and important problem in improving frame drops. However, in this paper we assume that the broadcaster sends as many as possible when meeting the network capacity constraints. In addition, the frame that can be send must be in the buffer. In line with the constraints, the max frame index $M_{j}$, is calculated by maximizing the function.
+\vspace{-0.1in}
 \begin{align}
 M_j = argmax \Sigma_k (1-y_{k,j-1})(1-z_{k,j-1}) \leq C_{j}
 \end{align}
-In addition, the frame that can be send must be in the buffer.
 
 \textbf{Timeliness constraint.}
 A frame is ``fresh'' if it is sent with in ``$T_1$''. That is, a frame is either sent or drop after time $T_1$ of its generation (7).
@@ -54,7 +54,7 @@ IP can achieve the offline optimal. Nevertheless long-term bandwidth is unknowab
 
 Considering the situation where two or more GOPs coexist in buffer, we propose a modified dropping algorithm, GreedyDrop (Algorithm~\ref{alg:greedy-drop}). Differing from dropping all the P frames in buffer by default, GreedyDrop drops all the P frames until the next keyframe. Hence the latest GOP can be reserved and our algorithm avoid frame dropping at least one GOP.
 
-We implemented the online algorithm in the evaluation section. In experiments where we control network bandwidth, we can compare the effect of the IP approach and the greedy algorithm.
+In experiments where we control network bandwidth, we can compare the effect of the IP approach and the greedy algorithm.
 
 \subsection{Adaptive Bitrate}
 \label{subsec:adaptive-bitrate}
@@ -62,12 +62,11 @@ We implemented the online algorithm in the evaluation section. In experiments wh
 \input{fig/vbr_variable.tex}
 \input{fig/vbr.tex}
 
-To deal with long-term bandwidth fading, we adopt an adaptive bitrate approach. We still first explore the theoretically best quality that can be achieved by tuning the bitrate. We then design an online algorithm for mobile devices.
+To further deal with long-term bandwidth fading, we adopt an adaptive bitrate approach. We still first explore the theoretically best quality that can be achieved by tuning the bitrate. We then design an online algorithm for mobile devices.
 
-We introduce a variable $R_{i}$. $R_{i}$ represents the bitrate of the $i$ frame. For variable bitrate, calculating how many frames can be sent is a tricky problem, because different frames have different sizes.
-The utility function can be formulated as in Figure~\ref{vbr-formulation},
+We introduce a variable $R_{i}$. $R_{i}$ represents the bitrate of the $i$ frame. On the basis of adopting GreedyDrop as our drop strategy, the utility function can be formulated as in Figure~\ref{vbr-formulation}.
 % equation \ref{vbr-formulation},
-the first item is the bitrate utility, the second represents the bitrate switch penalty, the last item equals the frame drops penalty. Variables are all defined in Table~\ref{tbl:vbrval}. Variables $\alpha$ and $\beta$ are the utility parameter of bitrate switch and frame drops. $sgn$ is the sign function. When the variable greater than zero, it equals 1; otherwise it equals zero. $mod$ is the operation of taking the remainder.
+The first item is the bitrate utility, the second represents the bitrate switch penalty, the last one equals the frame drops penalty. Variables are all defined in Table~\ref{tbl:vbrval}. Variables $\alpha$ and $\beta$ are the utility parameter of bitrate switch and frame drops. $sgn$ is the sign function. When the variable greater than zero, it equals 1; otherwise it equals zero. $mod$ is the operation of taking the remainder.
 
 \textbf{Bitrate Constraint.} Constraint (1) requires that bitrate within one GOP should be identical.
 
@@ -86,3 +85,5 @@ Offline optimal solution is hard to calculate. Assume for each GOP, the broadcas
 $1.$ Bandwidth estimation. According to Festive~\cite{jiang2014improving} and MPC~\cite{yin2015control}, harmonic mean is a useful method of estimating the future bandwidth. With more accurate bandwidth estimations, our method performs much more satisfactory.
 
 $2.$ Bitrate selection. To avoid frequent frame dropping, an appropriate bitrate is essential. Given the future bandwidth $C_j$ and the data size in buffer $Rest$, a heuristic method is to choose the largest available bitrate lower than $(C_j-Rest)/\eta$.
+
+GVBR use a suite of solutions that improve broadcaster-side QoE, both in GOP level and within GOP. 

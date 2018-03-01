@@ -1,6 +1,7 @@
 % \wenfei{edit until here}
 \section{Evaluation}
 \vspace{-0.05in}
+Evaluation of the previous design in GOP-level and within GOP is shown in this section, also the combined GVBR algorithm.
 \subsection{Best GOP}
 The previous section indicates that reducing the keyframe interval may cut down the frame dropping. Therefore in this section, we evaluate the method: reducing keyframe interval.
 \textbf{Implementation and experiment setup.}
@@ -30,7 +31,7 @@ To make the conclusion more visible, we fix keyframe interval to be 8s and intro
 
 \vspace{-0.05in}
 \subsection{Greedy Drop Strategy}
-To measure the performance, we compare the performance with two algorithms, there are namely Oracle, GreedyDrop(Algorithm~\ref{alg:greedy-drop}). Oracle, the offline optimal solution by the brute-force search, which has an exponential time complexity. We pick out one part from the dataset, and the trace lasts for $30$ seconds. During the period both bandwidth fading and bandwidth fluctuating appears. The frame rate is $30$ fps, and the total number of frame equals $900$.
+To measure the performance, we compare the performance with two algorithms, there are Oracle, Default OBS. Oracle, the offline optimal solution by the brute-force search, which has an exponential time complexity. We pick out one part from the dataset, and the trace lasts for $30$ seconds. During the period both long-term and short period bandwidth fluctuating appears. The keyframe interval is chosen bwteen [0.5,2]s, 1s.
 
 \input{fig/no_drop_frame.tex}
 \input{fig/drop-evaluation.tex}
@@ -39,20 +40,20 @@ The reduction of frame drops is displayed in the table~\ref{tab_drop}. OBS dropp
 
 \subsection{Greedy Adaptive Bitrate}
 \input{fig/vbr-evaluation.tex}
-We compared GVBR algorihtm towards three algorithms which work excellently in VOD bitrate adaptation:
+We compared GVBR algorihtm towards three algorithms which work excellently in VOD bitrate adaptation, harmonic mean is used for bandwidth estimation:
 \begin{itemize}
-  \item OBS-VBR: A simple but popular video adaptation method. Each time it chooses the bitrate exactly lower than the estimated bandwidth. In addition, use the default drop strategy in OBS. Harmonic mean is used for bandwidth estimation.
+  \item OBS-VBR: A simple but popular adaptation method. Each time it chooses the bitrate exactly lower than the estimated bandwidth. In addition, use the default drop strategy in OBS.
   \item MPC: use buffer state(number and size of frames, and type of frames, I/P/B) and bandwidth predictions to calculate the optimal bitrate operation in future several time slots. Use the first bitrate choice in next time slot.
-  \item Robust-MPC: use the approach resembling MPC, but correct the estimated bandwidth by considering the prediction error in past several time slots. New estimated bandwidth equals the original estimated bandwidth divide the prediction error.
+  \item Robust-MPC: use the approach resembling MPC, but correct the estimated bandwidth by considering the prediction error in past several time slots.
 \end{itemize}
-Robust-MPC is the state-of-art video adaptation algorithm. The MPC theory can also be applied to live streaming scenario.
+GreedyDrop is adopted as drop strategy(excluding OBS-VBR). Robust-MPC is the state-of-art video adaptation algorithm. The MPC theory can also be applied to live streaming scenario.
 Detailed comparison results are shown in Figures ~\ref{fig:fcc_specific} and \ref{fig:specific_hsdpa}. In these two figures, the real line is one real-world trace. Without predication error, MPC prefers to choose higher bitrate than Robust-MPC. Additionally, these two MPC algorihtm always fluctuate around the real bandwidth. In both cases, the MPC and Robust-MPC switch bitrate more frequently than GVBR. Because GVBR tends to choose the lower bitrate than the throughput, when the small bandwidth fluctuation happens, GVBR is less likely to shake. But MPC struggles to achieve the optimal utility, and when the bandwidth increases slightly, MPC has the potential to choose a higher bitrate to maximize the first item in \ref{vbr-formulation}.
 
 A massive simulation is displayed in Figure \ref{fig:vbr-qoe}. We use the combined dataset, FCC and HSDPA to evaluate GVBR algorithm. Normalized QoE is calculated in the figure. Among all, MPC has the maximum bitrate QoE, because the bandwidth estimation is aggressive and MPC has the potential to choose higher bitrate. Three others reach almost the same average bitrate, with little difference, but GVBR is a little higher. With higher bitrate, MPC also drops the most frames, and the time of play failure is the longest. GVBR reduces the play failure to a small value, 50\% reduction compared with Robust-MPC. With higher bitrate and lower play failure, GVBR definitely preforms the best, with the highest QoE.
 
-Cdf figures about bitrate, play failure and normalized QoE is as follows, Figure \ref{fig:vbr-bitrate-cdf}, \ref{fig:vbr-drop-cdf}, \ref{fig:vbr-qoe-cdf}. In \ref{fig:vbr-bitrate-cdf}, GVBR lies in the right of Robust-MPC and OBS, with a higher bitrate. $98\%$ of the paly failure is less than 5s in GVBR, about 40\% play fluently with no failure. Only 2\% of GVBR receives poor QoE, the rest 98\% has a high QoE falling in [0.8,1].
+CDF figures about bitrate, play failure and normalized QoE is as follows, Figure \ref{fig:vbr-bitrate-cdf}, \ref{fig:vbr-drop-cdf}, \ref{fig:vbr-qoe-cdf}. In \ref{fig:vbr-bitrate-cdf}, GVBR lies in the right of Robust-MPC and OBS, with a higher bitrate. $98\%$ of the paly failure is less than 5s in GVBR, about 40\% play fluently with no failure. Only 2\% of GVBR receives poor QoE, the rest 98\% has a high QoE falling in [0.8,1].
 
 The total frame drops compared with original OBS are reduced by 96\%. The play failure time of original OBS method with constant bitrate is 26s in average, and GVBR has a one-second play failure time.
 
-As all, GVBR achieves a higher bitrate, and at the same time reduces the play failure significantly.
+As all, our solution, GVBR achieves a higher bitrate, and at the same time reduces the play failure significantly.
 
